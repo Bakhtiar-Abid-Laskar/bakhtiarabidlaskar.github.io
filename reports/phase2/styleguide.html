@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System Styleguide | Bakhtiar Abid Laskar</title>
+  <link rel="stylesheet" href="../src/styles/tokens.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family-primary);
+      background-color: var(--color-fog);
+      color: var(--color-ink);
+      line-height: var(--line-height-normal);
+      padding: var(--space-8);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+
+    header {
+      border-bottom: 2px solid var(--color-border-light);
+      padding-bottom: var(--space-6);
+    }
+
+    h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      margin-bottom: var(--space-2);
+    }
+
+    p.subtitle {
+      font-size: var(--font-size-md);
+      color: var(--color-mist);
+      max-width: var(--max-line-length);
+    }
+
+    section {
+      background-color: var(--color-paper);
+      padding: var(--space-8);
+      border-radius: var(--radius-media);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    section.dark-stage {
+      background-color: var(--color-deep);
+      color: var(--color-paper);
+      box-shadow: var(--shadow-corridor);
+    }
+
+    section.dark-stage h2 {
+      color: var(--color-paper);
+      border-bottom-color: var(--color-border-deep);
+    }
+
+    section.dark-stage p.section-sub {
+      color: var(--color-haze);
+    }
+
+    h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+      border-bottom: 1px solid var(--color-border-light);
+      padding-bottom: var(--space-3);
+    }
+
+    p.section-sub {
+      font-size: var(--font-size-sm);
+      color: var(--color-mist);
+      margin-bottom: var(--space-6);
+    }
+
+    /* Colors Grid */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .swatch {
+      border-radius: var(--radius-control);
+      overflow: hidden;
+      border: 1px solid var(--color-border-light);
+      box-shadow: var(--shadow-control);
+      background-color: var(--color-paper);
+    }
+
+    .swatch-color {
+      height: 90px;
+    }
+
+    .swatch-info {
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .swatch-name {
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+    }
+
+    .swatch-value {
+      font-size: var(--font-size-xs);
+      color: var(--color-mist);
+    }
+
+    /* Typography Table */
+    .type-sample {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border-light);
+      padding-bottom: var(--space-3);
+    }
+
+    .type-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-mist);
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    /* Interactive Controls */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-control);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:focus-visible,
+    .btn.focused {
+      outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    .btn-primary {
+      background-color: var(--color-cobalt);
+      color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-ink);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--color-ink);
+      border-color: var(--color-border-light);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-fog);
+    }
+
+    .btn-dark-primary {
+      background-color: var(--color-paper);
+      color: var(--color-deep);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .btn-dark-primary:hover {
+      background-color: var(--color-white);
+    }
+
+    .btn-dark-secondary {
+      background-color: transparent;
+      color: var(--color-paper);
+      border-color: var(--color-border-deep);
+    }
+
+    .btn-dark-secondary:hover {
+      border-color: var(--color-haze);
+      color: var(--color-white);
+    }
+
+    .btn-dark-primary:focus-visible,
+    .btn-dark-secondary:focus-visible,
+    .btn-dark-primary.focused,
+    .btn-dark-secondary.focused {
+      outline: var(--focus-ring-width) var(--focus-ring-style) var(--color-cobalt-light);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    a.text-link {
+      color: var(--color-cobalt);
+      text-decoration: underline;
+      font-weight: var(--font-weight-medium);
+      text-underline-offset: 3px;
+    }
+
+    a.text-link:hover {
+      color: var(--color-ink);
+    }
+
+    a.text-link:focus-visible {
+      outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    a.text-link-dark {
+      color: var(--color-cobalt-light);
+      text-decoration: underline;
+      font-weight: var(--font-weight-medium);
+      text-underline-offset: 3px;
+    }
+
+    a.text-link-dark:hover {
+      color: var(--color-paper);
+    }
+
+    a.text-link-dark:focus-visible {
+      outline: var(--focus-ring-width) var(--focus-ring-style) var(--color-cobalt-light);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    /* Cards / Surfaces Demo */
+    .surfaces-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .demo-card {
+      padding: var(--space-6);
+      background-color: var(--color-paper);
+      border-radius: var(--radius-media);
+    }
+
+    .demo-card.subtle {
+      box-shadow: var(--shadow-subtle);
+      border: 1px solid var(--color-border-light);
+    }
+
+    .demo-card.raised {
+      box-shadow: var(--shadow-raised);
+    }
+
+    .demo-card.corridor-preview {
+      background-color: var(--color-paper);
+      color: var(--color-ink);
+      box-shadow: var(--shadow-corridor);
+      border: 1px solid var(--color-border-light);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Design System Styleguide</h1>
+      <p class="subtitle">Bakhtiar Abid Laskar Portfolio Rebuild. Single-source design tokens from tokens.css.</p>
+    </header>
+
+    <!-- SECTION 1: COLOR PALETTE -->
+    <section>
+      <h2>Color Tokens</h2>
+      <p class="section-sub">Curated palette based on Section 5.2 (fog, paper, ink, deep, cobalt, mist, haze).</p>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-fog);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-fog</span>
+            <span class="swatch-value">Page ground (Light)</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-paper);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-paper</span>
+            <span class="swatch-value">Raised surface</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-ink);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-ink</span>
+            <span class="swatch-value">Primary text (Light)</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-mist);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-mist</span>
+            <span class="swatch-value">Secondary text (Light)</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-deep);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-deep</span>
+            <span class="swatch-value">Corridor stage ground</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-haze);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-haze</span>
+            <span class="swatch-value">Secondary text (Deep)</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-cobalt);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-cobalt</span>
+            <span class="swatch-value">Accent (Light)</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: var(--color-cobalt-light);"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">--color-cobalt-light</span>
+            <span class="swatch-value">Accent (Deep)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: TYPOGRAPHY -->
+    <section>
+      <h2>Type Scale</h2>
+      <p class="section-sub">Modular type scale based on Archivo with wide and regular width settings.</p>
+      <div class="type-sample">
+        <div class="type-row">
+          <span class="type-label">display (5rem / 80px)</span>
+          <span style="font-size: var(--font-size-display); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight);">Bakhtiar</span>
+        </div>
+        <div class="type-row">
+          <span class="type-label">3xl (2.75rem / 44px)</span>
+          <span style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold);">Selected Projects</span>
+        </div>
+        <div class="type-row">
+          <span class="type-label">2xl (2rem / 32px)</span>
+          <span style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold);">Avalin Laboratories</span>
+        </div>
+        <div class="type-row">
+          <span class="type-label">xl (1.5rem / 24px)</span>
+          <span style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">Internal Operations Platform</span>
+        </div>
+        <div class="type-row">
+          <span class="type-label">md (1.125rem / 18px)</span>
+          <span style="font-size: var(--font-size-md);">Full-Stack Developer building production web and mobile systems</span>
+        </div>
+        <div class="type-row">
+          <span class="type-label">base (1rem / 16px)</span>
+          <span style="font-size: var(--font-size-base); max-width: var(--max-line-length);">Corporate website for Avalin Laboratories. A responsive Next.js platform with a consistent design system, structured product-led sections and clear navigation across desktop, tablet and mobile.</span>
+        </div>
+        <div class="type-row">
+          <span class="type-label">sm (0.875rem / 14px)</span>
+          <span style="font-size: var(--font-size-sm); color: var(--color-mist);">Next.js · React · TypeScript · Tailwind CSS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE CONTROLS (LIGHT GROUND) -->
+    <section>
+      <h2>Interactive Controls (Light Surface)</h2>
+      <p class="section-sub">Buttons, links, and high-visibility focus states on light ground.</p>
+      <div class="controls-row">
+        <button class="btn btn-primary" id="btn-light-primary">Live Site</button>
+        <button class="btn btn-primary focused" id="btn-light-focused">Focused State</button>
+        <button class="btn btn-secondary" id="btn-light-secondary">Source Code</button>
+        <a href="#test" class="text-link" id="link-light">Email me on bakhtiarabidlaskar1@gmail.com</a>
+      </div>
+      <p style="font-size: var(--font-size-xs); color: var(--color-mist);">Tip: Use the Tab key to verify the 2px solid cobalt focus ring with 3px offset.</p>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE CONTROLS (DEEP STAGE GROUND) -->
+    <section class="dark-stage">
+      <h2>Interactive Controls (Deep Corridor Surface)</h2>
+      <p class="section-sub">Buttons, links, and high-visibility focus states on deep corridor ground.</p>
+      <div class="controls-row">
+        <button class="btn btn-dark-primary" id="btn-dark-primary">Live Site</button>
+        <button class="btn btn-dark-primary focused" id="btn-dark-focused">Focused State</button>
+        <button class="btn btn-dark-secondary" id="btn-dark-secondary">Source Code</button>
+        <a href="#test" class="text-link-dark" id="link-dark">View source on GitHub</a>
+      </div>
+      <p style="font-size: var(--font-size-xs); color: var(--color-haze);">Focus ring on deep ground uses cobalt-light (contrast ratio 6.80:1 AAA).</p>
+    </section>
+
+    <!-- SECTION 5: SURFACES & DIRECTIONAL SHADOWS -->
+    <section>
+      <h2>Surfaces & Radii (Two Radii Token Rule)</h2>
+      <p class="section-sub">Two radii tokens only: --radius-control (4px) and --radius-media (12px). Directional deep-tinted shadows.</p>
+      <div class="surfaces-row">
+        <div class="demo-card subtle">
+          <h3 style="font-size: var(--font-size-md); margin-bottom: var(--space-2);">Subtle Raised Surface</h3>
+          <p style="font-size: var(--font-size-sm); color: var(--color-mist);">Uses --radius-media (12px) with --shadow-subtle tinted with deep.</p>
+        </div>
+        <div class="demo-card raised">
+          <h3 style="font-size: var(--font-size-md); margin-bottom: var(--space-2);">Elevated Card</h3>
+          <p style="font-size: var(--font-size-sm); color: var(--color-mist);">Uses --radius-media (12px) with --shadow-raised tinted with deep.</p>
+        </div>
+        <div class="demo-card corridor-preview">
+          <h3 style="font-size: var(--font-size-md); margin-bottom: var(--space-2);">Corridor Floating Panel</h3>
+          <p style="font-size: var(--font-size-sm); color: var(--color-mist);">Simulates corridor panel depth with --shadow-corridor directional shadow.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "bakhtiarabidlaskar.github.io",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "prebuild": "node scripts/validate-content.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:validation": "node scripts/test-validation-failures.mjs",
+    "test:qa-phase4": "node scripts/qa-phase4.mjs",
+    "test:qa-phase5": "node scripts/qa-phase5.mjs",
+    "test:qa-phase6": "node scripts/qa-phase6.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.12.7",
+    "lenis": "^1.1.20",
+    "next": "^15.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.9",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^9.21.0",
+    "eslint-config-next": "^15.2.1",
+    "sharp": "^0.33.5",
+    "typescript": "^5.8.2"
+  }
+}
