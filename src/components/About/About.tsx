@@ -44,7 +44,7 @@ export const About: React.FC = () => {
       if (activeLines.length > 0) {
         gsap.fromTo(
           activeLines,
-          { opacity: 0.28 },
+          { opacity: 0.6 },
           {
             opacity: 1,
             stagger: motionTokens.momentD.lineStagger,

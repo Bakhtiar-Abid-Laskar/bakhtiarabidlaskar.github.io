@@ -39,37 +39,18 @@ export const Hero: React.FC = () => {
         nameRef.current.style.fontVariationSettings = `'wdth' ${motionTokens.momentA.fontWidthStart}`;
       }
 
-      // 2. Orchestrated Entrance: Reveal by line mask once
+      // 2. Orchestrated Entrance: Reveal by line mask once (Section 5.4 Moment A)
       const entranceTargets = [nameRef.current, roleRef.current].filter(Boolean);
       if (entranceTargets.length > 0) {
         gsap.from(entranceTargets, {
-          yPercent: 105,
-          duration: motionTokens.durations.entrance,
+          yPercent: 100,
+          duration: 0.7,
           ease: motionTokens.eases.smooth,
-          stagger: 0.12,
-          onStart: () => {
-            entranceTargets.forEach((el) => {
-              if (el) el.style.willChange = 'transform';
-            });
-          },
-          onComplete: () => {
-            entranceTargets.forEach((el) => {
-              if (el) el.style.willChange = 'auto';
-            });
-          },
+          stagger: 0.1,
+          clearProps: 'transform',
         });
       }
 
-      // Entrance fade-in for orientation text and action links
-      if (contentRef.current) {
-        gsap.from(contentRef.current, {
-          opacity: 0,
-          duration: motionTokens.durations.slow,
-          delay: 0.3,
-          ease: motionTokens.eases.out,
-          clearProps: 'opacity',
-        });
-      }
 
       // 3. Moment A Exit Scrub: 3D perspective tilt & font width-axis condensation
       if (sectionRef.current && groupRef.current && nameRef.current) {

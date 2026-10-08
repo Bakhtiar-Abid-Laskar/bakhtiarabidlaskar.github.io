@@ -109,6 +109,12 @@
   --breakpoint-2xl: 1440px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   font-family: var(--font-family-primary);
@@ -117,6 +123,7 @@ body {
   background-color: var(--color-fog);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 button,

@@ -21,6 +21,7 @@ export const ProjectsCorridor: React.FC = () => {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const statusTextRef = useRef<HTMLDivElement | null>(null);
   const dotButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
   const activeIndexRef = useRef<number>(0);
 
   // Pinned scroll length derived from project count * per-project token (Section 5.4)
@@ -72,15 +73,27 @@ export const ProjectsCorridor: React.FC = () => {
                 }
               });
 
-              // Update pointer-events only when active index shifts
+              // Update pointer-events and inert only when active index shifts
               panelRefs.current.forEach((panel, idx) => {
                 if (panel) {
                   panel.style.pointerEvents = idx === currentIdx ? 'auto' : 'none';
+                  if (idx === currentIdx) {
+                    panel.removeAttribute('inert');
+                  } else {
+                    panel.setAttribute('inert', '');
+                  }
                 }
               });
             }
           },
         },
+      });
+
+      // Initial inert setup: deactivate background panels
+      panelRefs.current.forEach((panel, idx) => {
+        if (panel && idx > 0) {
+          panel.setAttribute('inert', '');
+        }
       });
 
       // 1. Hardware-accelerated Camera Z translation (Moment B camera rig)
@@ -94,7 +107,7 @@ export const ProjectsCorridor: React.FC = () => {
         0
       );
 
-      // 2. Background crossfade (fog -> deep -> fog)
+      // 2. Background crossfade (fog -> deep -> fog) & Title color sync
       if (overlayRef.current) {
         tl.fromTo(
           overlayRef.current,
@@ -106,6 +119,21 @@ export const ProjectsCorridor: React.FC = () => {
           overlayRef.current,
           { opacity: 1 },
           { opacity: 0, ease: 'none', duration: 0.12 },
+          0.88
+        );
+      }
+
+      if (titleRef.current) {
+        tl.fromTo(
+          titleRef.current,
+          { color: 'var(--color-ink)' },
+          { color: 'var(--color-paper)', ease: 'none', duration: 0.12 },
+          0
+        );
+        tl.fromTo(
+          titleRef.current,
+          { color: 'var(--color-paper)' },
+          { color: 'var(--color-ink)', ease: 'none', duration: 0.12 },
           0.88
         );
       }
@@ -175,7 +203,7 @@ export const ProjectsCorridor: React.FC = () => {
         <div ref={overlayRef} className={styles.stageBackgroundOverlay} />
 
         <div className={styles.sectionHeader}>
-          <h2 id="projects-title" className={styles.sectionTitle}>
+          <h2 ref={titleRef} id="projects-title" className={styles.sectionTitle}>
             Projects
           </h2>
         </div>

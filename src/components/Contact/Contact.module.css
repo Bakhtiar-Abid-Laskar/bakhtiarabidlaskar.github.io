@@ -136,6 +136,7 @@
   pointer-events: none;
   user-select: none;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
@@ -151,6 +152,9 @@
   opacity: 0.95;
   transform-origin: bottom left;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   will-change: transform, opacity;
   white-space: nowrap;
 }

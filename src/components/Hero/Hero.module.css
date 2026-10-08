@@ -1,12 +1,13 @@
 .heroSection {
   position: relative;
-  min-height: 85vh;
+  min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   padding: var(--space-20) var(--space-8);
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
   perspective: 1000px;
   overflow: visible;
 }
@@ -128,7 +129,7 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    min-height: auto;
+    min-height: calc(100vh - 70px);
     padding: var(--space-12) var(--space-4) var(--space-16) var(--space-4);
   }
 

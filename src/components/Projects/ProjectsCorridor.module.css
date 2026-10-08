@@ -16,6 +16,7 @@
   justify-content: center;
   align-items: center;
   perspective: 1200px;
+  -webkit-perspective: 1200px;
 }
 
 .stageBackgroundOverlay {
@@ -40,9 +41,10 @@
 .sectionTitle {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-paper);
+  color: var(--color-ink);
   letter-spacing: -0.02em;
   margin: 0;
+  transition: color 0.15s linear;
 }
 
 .cameraRig {
@@ -51,6 +53,7 @@
   max-width: 1000px;
   height: 580px;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   z-index: var(--z-corridor-card-1, 10);
   display: flex;
   align-items: center;
@@ -65,8 +68,10 @@
   justify-content: center;
   align-items: center;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   will-change: transform, opacity;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Corridor Progress Navigation */

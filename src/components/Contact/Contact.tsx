@@ -38,7 +38,7 @@ export const Contact: React.FC = () => {
         closingNameRef.current,
         {
           rotateX: motionTokens.momentE.rotateXStart,
-          opacity: 0.3,
+          opacity: 0.6,
         },
         {
           rotateX: motionTokens.momentE.rotateXEnd,
