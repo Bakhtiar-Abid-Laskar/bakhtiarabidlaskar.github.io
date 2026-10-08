@@ -114,11 +114,9 @@
 }
 
 .categoryTitle {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-mist);
+  color: var(--color-ink);
   margin: 0 0 var(--space-3) 0;
 }
 

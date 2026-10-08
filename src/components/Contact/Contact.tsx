@@ -114,9 +114,6 @@ export const Contact: React.FC = () => {
                 >
                   GitHub
                 </a>
-                <span className={styles.linkDivider} aria-hidden="true">
-                  /
-                </span>
                 <a
                   href={profile.contact.linkedin}
                   target="_blank"

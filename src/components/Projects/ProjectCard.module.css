@@ -71,10 +71,8 @@
 }
 
 .kindBadge {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-mist);
   margin-bottom: var(--space-2);
 }

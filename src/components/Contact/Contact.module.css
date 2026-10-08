@@ -56,10 +56,8 @@
 }
 
 .linkLabel {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-mist);
 }
 
@@ -96,7 +94,7 @@
 .socialLinks {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-6);
   margin-top: var(--space-1);
 }
 
@@ -121,12 +119,6 @@
   outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
   border-radius: var(--radius-control);
-}
-
-.linkDivider {
-  color: var(--color-mist);
-  font-size: var(--font-size-base);
-  user-select: none;
 }
 
 /* Moment E: Oversized Closing Name Stage */

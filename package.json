@@ -15,7 +15,8 @@
     "test:qa-phase5": "node scripts/qa-phase5.mjs",
     "test:qa-phase6": "node scripts/qa-phase6.mjs",
     "test:qa-phase7": "node scripts/qa-phase7.mjs",
-    "test:qa-phase8": "node scripts/qa-phase8.mjs"
+    "test:qa-phase8": "node scripts/qa-phase8.mjs",
+    "test:qa-phase9": "node scripts/qa-phase9.mjs"
   },
   "dependencies": {
     "gsap": "^3.12.7",

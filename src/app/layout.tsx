@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         url: `${siteConfig.basePath}/media/og-image.png`,
         width: 1200,
         height: 630,
-        alt: 'Bakhtiar Abid Laskar — Developer Portfolio',
+        alt: 'Bakhtiar Abid Laskar | Developer Portfolio',
       },
     ],
   },
