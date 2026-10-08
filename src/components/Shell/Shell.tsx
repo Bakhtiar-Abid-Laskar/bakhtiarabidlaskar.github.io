@@ -6,8 +6,10 @@ import SkipLink from '@/components/SkipLink/SkipLink';
 import Hero from '@/components/Hero/Hero';
 import About from '@/components/About/About';
 import Projects from '@/components/Projects/Projects';
+import EducationSkills from '@/components/EducationSkills/EducationSkills';
+import Contact from '@/components/Contact/Contact';
+import Footer from '@/components/Footer/Footer';
 import { initMotionRegistry, destroyMotionRegistry } from '@/motion/registry';
-import profile from '@/content/profile';
 import styles from './Shell.module.css';
 
 export const Shell: React.FC = () => {
@@ -51,79 +53,14 @@ export const Shell: React.FC = () => {
         <Projects />
 
         {/* EDUCATION & SKILLS SECTION */}
-        <section id="education-skills" className={styles.section} aria-labelledby="edu-title">
-          <h2 id="edu-title" className={styles.sectionTitle}>
-            Education and skills
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--space-8)', marginTop: 'var(--space-6)' }}>
-            <div>
-              <h3 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-4)' }}>
-                Education
-              </h3>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                {profile.education.map((edu, idx) => (
-                  <li key={idx} style={{ paddingBottom: 'var(--space-3)', borderBottom: '1px solid var(--color-border-light)' }}>
-                    <div style={{ fontWeight: 'var(--font-weight-semibold)', fontSize: 'var(--font-size-base)' }}>{edu.degree}</div>
-                    <div style={{ color: 'var(--color-mist)', fontSize: 'var(--font-size-sm)' }}>{edu.institution} ({edu.period})</div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <EducationSkills />
 
-            <div>
-              <h3 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-4)' }}>
-                Skills
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                {profile.skills.map((grp) => (
-                  <div key={grp.category}>
-                    <div style={{ fontWeight: 'var(--font-weight-semibold)', fontSize: 'var(--font-size-sm)', color: 'var(--color-mist)', marginBottom: 'var(--space-1)' }}>
-                      {grp.category}
-                    </div>
-                    <div style={{ fontSize: 'var(--font-size-base)' }}>
-                      {grp.items.join(' · ')}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CONTACT SECTION */}
-        <section id="contact" className={styles.section} aria-labelledby="contact-title">
-          <h2 id="contact-title" className={styles.sectionTitle}>
-            Contact
-          </h2>
-          <p style={{ fontSize: 'var(--font-size-md)', color: 'var(--color-mist)', marginBottom: 'var(--space-4)' }}>
-            Get in touch for production engineering and collaboration.
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-            <div>
-              <a
-                href={profile.contact.email}
-                style={{
-                  color: 'var(--color-cobalt)',
-                  fontSize: 'var(--font-size-lg)',
-                  textDecoration: 'underline',
-                  fontWeight: 'var(--font-weight-medium)',
-                }}
-              >
-                {profile.contact.email.replace('mailto:', '')}
-              </a>
-            </div>
-            {profile.contact.phone && (
-              <div style={{ fontSize: 'var(--font-size-base)', color: 'var(--color-ink)' }}>
-                Phone: {profile.contact.phone}
-              </div>
-            )}
-          </div>
-        </section>
+        {/* CONTACT SECTION (Moment E) */}
+        <Contact />
       </main>
 
-      <footer className={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
-      </footer>
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 };

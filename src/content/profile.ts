@@ -61,7 +61,7 @@ export const profile: Profile = {
     {
       degree: 'Class 12 (Higher Secondary)',
       institution: 'Narsing HS School Silchar',
-      period: '2021 – 2023',
+      period: '2021–2023',
     },
     {
       degree: 'Class 10 (Secondary)',
