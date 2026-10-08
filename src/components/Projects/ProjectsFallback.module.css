@@ -1,0 +1,48 @@
+.fallbackSection {
+  background-color: var(--color-deep);
+  color: var(--color-paper);
+  padding: var(--space-20) var(--space-8);
+  width: 100%;
+}
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-10);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-paper);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.stackList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.cardWrapper {
+  width: 100%;
+  max-width: 960px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  will-change: auto;
+}
+
+@media (max-width: 768px) {
+  .fallbackSection {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .sectionTitle {
+    font-size: var(--font-size-2xl);
+  }
+}

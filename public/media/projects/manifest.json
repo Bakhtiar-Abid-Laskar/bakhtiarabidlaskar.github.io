@@ -1,0 +1,51 @@
+{
+  "avalin-laboratories": {
+    "width": 1440,
+    "height": 900,
+    "formats": [
+      "webp",
+      "png"
+    ]
+  },
+  "digital-solution-ims": {
+    "width": 1440,
+    "height": 900,
+    "formats": [
+      "svg",
+      "webp",
+      "png"
+    ]
+  },
+  "ecommerce-sales-dashboard": {
+    "width": 1440,
+    "height": 900,
+    "formats": [
+      "webp",
+      "png"
+    ]
+  },
+  "nilakshith-enterprises": {
+    "width": 1440,
+    "height": 900,
+    "formats": [
+      "webp",
+      "png"
+    ]
+  },
+  "southcity-hospital": {
+    "width": 1440,
+    "height": 900,
+    "formats": [
+      "webp",
+      "png"
+    ]
+  },
+  "ustm-academia": {
+    "width": 1440,
+    "height": 900,
+    "formats": [
+      "webp",
+      "png"
+    ]
+  }
+}

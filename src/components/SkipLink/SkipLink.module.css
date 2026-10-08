@@ -1,0 +1,21 @@
+.skipLink {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: var(--z-skip-link);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  transform: translateY(-180%);
+  transition: transform var(--durations-fast, 0.2s) ease;
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--color-cobalt);
+  outline-offset: var(--focus-ring-offset);
+}

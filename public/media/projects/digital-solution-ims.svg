@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#071729"/>
+      <stop offset="100%" stop-color="#0A2038"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#132B47"/>
+      <stop offset="100%" stop-color="#0E233B"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#040C16" flood-opacity="0.45"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#85A3FF"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1440" height="900" fill="url(#bg)"/>
+
+  <!-- Grid Pattern Overlay -->
+  <g stroke="rgba(159, 179, 196, 0.05)" stroke-width="1">
+    <line x1="120" y1="0" x2="120" y2="900"/>
+    <line x1="480" y1="0" x2="480" y2="900"/>
+    <line x1="840" y1="0" x2="840" y2="900"/>
+    <line x1="1200" y1="0" x2="1200" y2="900"/>
+    <line x1="0" y1="180" x2="1440" y2="180"/>
+    <line x1="0" y1="450" x2="1440" y2="450"/>
+    <line x1="0" y1="720" x2="1440" y2="720"/>
+  </g>
+
+  <!-- System Header -->
+  <g transform="translate(100, 70)">
+    <text x="0" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#F3F6F7" letter-spacing="-0.02em">
+      Digital Solution Internal Management System
+    </text>
+    <text x="0" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#85A3FF">
+      System Architecture &amp; Role-Based Data Flow
+    </text>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- COLUMN 1: USER ROLES (Left: x=100)                             -->
+  <!-- ============================================================== -->
+  <g transform="translate(100, 160)">
+    <text x="0" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#9FB3C4" letter-spacing="0.08em">
+      USER ROLES
+    </text>
+
+    <!-- Role 1: Admin / Operations Manager -->
+    <g transform="translate(0, 45)" filter="url(#shadow)">
+      <rect width="320" height="150" rx="8" fill="url(#cardGrad)" stroke="rgba(159, 179, 196, 0.22)" stroke-width="1.5"/>
+      <text x="24" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#F3F6F7">Admin &amp; Manager</text>
+      <text x="24" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Job allocation &amp; dispatch</text>
+      <text x="24" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Inventory tracking &amp; purchase logs</text>
+      <text x="24" y="116" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Invoicing &amp; revenue metrics</text>
+    </g>
+
+    <!-- Role 2: Field Technician -->
+    <g transform="translate(0, 225)" filter="url(#shadow)">
+      <rect width="320" height="150" rx="8" fill="url(#cardGrad)" stroke="rgba(159, 179, 196, 0.22)" stroke-width="1.5"/>
+      <text x="24" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#F3F6F7">Field Technician</text>
+      <text x="24" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Geofenced attendance check-in</text>
+      <text x="24" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Assigned ticket management</text>
+      <text x="24" y="116" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Repair status &amp; parts replacement</text>
+    </g>
+
+    <!-- Role 3: Front Desk / Intake -->
+    <g transform="translate(0, 405)" filter="url(#shadow)">
+      <rect width="320" height="150" rx="8" fill="url(#cardGrad)" stroke="rgba(159, 179, 196, 0.22)" stroke-width="1.5"/>
+      <text x="24" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#F3F6F7">Front Desk / Intake</text>
+      <text x="24" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Customer device registration</text>
+      <text x="24" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Auto-generated tracking codes</text>
+      <text x="24" y="116" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Customer status inquiries</text>
+    </g>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- COLUMN 2: CLIENT APPLICATION PLATFORMS (Middle: x=540)         -->
+  <!-- ============================================================== -->
+  <g transform="translate(540, 160)">
+    <text x="0" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#9FB3C4" letter-spacing="0.08em">
+      CLIENT APPLICATIONS
+    </text>
+
+    <!-- App 1: Next.js Admin Panel -->
+    <g transform="translate(0, 95)" filter="url(#shadow)">
+      <rect width="360" height="210" rx="8" fill="url(#cardGrad)" stroke="#2A45F2" stroke-width="2"/>
+      <rect x="24" y="24" width="70" height="24" rx="4" fill="#2A45F2"/>
+      <text x="59" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">WEB APP</text>
+      <text x="106" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#F3F6F7">Next.js Admin Panel</text>
+      <text x="24" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Responsive TypeScript &amp; React layout</text>
+      <text x="24" y="104" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Interactive charts (Recharts) &amp; analytics</text>
+      <text x="24" y="128" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Customer billing &amp; inventory tables</text>
+      <text x="24" y="152" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Real-time job assignment dashboard</text>
+      <text x="24" y="186" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#85A3FF">STACK: Next.js · React · TypeScript · Recharts · Leaflet</text>
+    </g>
+
+    <!-- App 2: Expo Mobile App -->
+    <g transform="translate(0, 335)" filter="url(#shadow)">
+      <rect width="360" height="210" rx="8" fill="url(#cardGrad)" stroke="#2A45F2" stroke-width="2"/>
+      <rect x="24" y="24" width="85" height="24" rx="4" fill="#2A45F2"/>
+      <text x="66" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">MOBILE APP</text>
+      <text x="122" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#F3F6F7">Expo React Native App</text>
+      <text x="24" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Cross-platform iOS &amp; Android client</text>
+      <text x="24" y="104" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Geofenced GPS attendance verification</text>
+      <text x="24" y="128" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Live ticket update notifications</text>
+      <text x="24" y="152" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9FB3C4">• Offline-ready service logs</text>
+      <text x="24" y="186" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#85A3FF">STACK: Expo · React Native · TypeScript</text>
+    </g>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- COLUMN 3: SUPABASE BACKEND (Right: x=1000)                     -->
+  <!-- ============================================================== -->
+  <g transform="translate(1000, 160)">
+    <text x="0" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#9FB3C4" letter-spacing="0.08em">
+      BACKEND INFRASTRUCTURE
+    </text>
+
+    <!-- Supabase Platform Card -->
+    <g transform="translate(0, 95)" filter="url(#shadow)">
+      <rect width="340" height="450" rx="8" fill="url(#cardGrad)" stroke="rgba(159, 179, 196, 0.22)" stroke-width="1.5"/>
+      <rect x="24" y="24" width="80" height="24" rx="4" fill="#0E422C"/>
+      <text x="64" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#3ECF8E" text-anchor="middle">SUPABASE</text>
+      <text x="115" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#F3F6F7">PostgreSQL Database</text>
+
+      <g transform="translate(24, 75)">
+        <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#85A3FF">Row-Level Security (RLS)</text>
+        <text x="0" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9FB3C4">• Role-based query enforcement</text>
+        <text x="0" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9FB3C4">• Tenant &amp; technician record isolation</text>
+      </g>
+
+      <line x1="24" y1="165" x2="316" y2="165" stroke="rgba(159, 179, 196, 0.12)" stroke-width="1"/>
+
+      <g transform="translate(24, 185)">
+        <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#85A3FF">Database Generated Codes</text>
+        <text x="0" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9FB3C4">• Sequential tracking identifiers</text>
+        <text x="0" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9FB3C4">• Unique hardware tag generation</text>
+      </g>
+
+      <line x1="24" y1="275" x2="316" y2="275" stroke="rgba(159, 179, 196, 0.12)" stroke-width="1"/>
+
+      <g transform="translate(24, 295)">
+        <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#85A3FF">Realtime Subscriptions &amp; Auth</text>
+        <text x="0" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9FB3C4">• Instant status change propagation</text>
+        <text x="0" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9FB3C4">• Role-based JWT authentication</text>
+        <text x="0" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9FB3C4">• Attendance geofence validation</text>
+      </g>
+
+      <text x="24" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#3ECF8E">STACK: PostgreSQL · Row-Level Security · Supabase Realtime</text>
+    </g>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- CONNECTING DATA FLOW ARROWS                                     -->
+  <!-- ============================================================== -->
+  <!-- Roles to Middle Clients -->
+  <path d="M 420 280 L 536 295" stroke="#85A3FF" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+  <path d="M 420 460 L 536 440" stroke="#85A3FF" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+  <path d="M 420 640 L 536 340" stroke="#85A3FF" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+
+  <!-- Middle Clients to Backend -->
+  <path d="M 900 360 L 996 385" stroke="#85A3FF" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 900 440 L 996 415" stroke="#85A3FF" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>
