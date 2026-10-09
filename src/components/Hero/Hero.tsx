@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import profile from '@/content/profile';
 import motionTokens from '@/motion/tokens';
+import HeroCanvas from './HeroCanvas';
+import Magnetic from '@/components/Magnetic/Magnetic';
 import styles from './Hero.module.css';
 
 if (typeof window !== 'undefined') {
@@ -13,10 +15,13 @@ if (typeof window !== 'undefined') {
 
 export const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const groupRef = useRef<HTMLDivElement | null>(null);
-  const nameRef = useRef<HTMLHeadingElement | null>(null);
-  const roleRef = useRef<HTMLParagraphElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const line1Ref = useRef<HTMLSpanElement | null>(null);
+  const line2Ref = useRef<HTMLSpanElement | null>(null);
+  const line3Ref = useRef<HTMLSpanElement | null>(null);
+  const metaRef = useRef<HTMLDivElement | null>(null);
+  const subRef = useRef<HTMLParagraphElement | null>(null);
+  const actionsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -25,72 +30,34 @@ export const Hero: React.FC = () => {
       motionTokens.mediaQueries.reducedMotion
     ).matches;
 
-    // In reduced motion mode, leave text static and immediately readable
-    if (prefersReducedMotion) {
-      if (nameRef.current) {
-        nameRef.current.style.fontVariationSettings = `'wdth' ${motionTokens.momentA.fontWidthStart}`;
-      }
-      return;
-    }
+    if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. Initial wide setting for Archivo
-      if (nameRef.current) {
-        nameRef.current.style.fontVariationSettings = `'wdth' ${motionTokens.momentA.fontWidthStart}`;
-      }
+      // Entrance: staggered line reveal
+      const lines = [metaRef.current, line1Ref.current, line2Ref.current, line3Ref.current, subRef.current, actionsRef.current].filter(Boolean);
 
-      // 2. Orchestrated Entrance: Reveal by line mask once (Section 5.4 Moment A)
-      const entranceTargets = [nameRef.current, roleRef.current].filter(Boolean);
-      if (entranceTargets.length > 0) {
-        gsap.from(entranceTargets, {
-          yPercent: 100,
-          duration: 0.7,
-          ease: motionTokens.eases.smooth,
-          stagger: 0.1,
-          clearProps: 'transform',
-        });
-      }
+      gsap.from(lines, {
+        yPercent: 110,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.08,
+        delay: 0.1,
+      });
 
-
-      // 3. Moment A Exit Scrub: 3D perspective tilt & font width-axis condensation
-      if (sectionRef.current && groupRef.current && nameRef.current) {
-        const fontProxy = { wdth: motionTokens.momentA.fontWidthStart };
-
-        const scrubTl = gsap.timeline({
+      // Exit: parallax scrub as user scrolls past hero
+      if (sectionRef.current && contentRef.current) {
+        gsap.to(contentRef.current, {
+          y: -80,
+          opacity: 0.2,
+          ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 70px',
+            start: 'top top',
             end: 'bottom top',
             scrub: true,
           },
         });
-
-        // 3D group tilt and translation
-        scrubTl.to(
-          groupRef.current,
-          {
-            rotateX: motionTokens.momentA.rotateXMax,
-            z: motionTokens.momentA.translateZMax,
-            transformOrigin: '50% 0%',
-            ease: 'none',
-          },
-          0
-        );
-
-        // Font variation settings 'wdth' scrub from 125 -> 85
-        scrubTl.to(
-          fontProxy,
-          {
-            wdth: motionTokens.momentA.fontWidthEnd,
-            ease: 'none',
-            onUpdate: () => {
-              if (nameRef.current) {
-                nameRef.current.style.fontVariationSettings = `'wdth' ${fontProxy.wdth.toFixed(1)}`;
-              }
-            },
-          },
-          0
-        );
       }
     }, sectionRef);
 
@@ -101,49 +68,95 @@ export const Hero: React.FC = () => {
     <section
       ref={sectionRef}
       id="hero"
-      className={styles.heroSection}
-      aria-labelledby="hero-name"
+      className={styles.section}
+      aria-labelledby="hero-headline"
     >
-      <div ref={groupRef} className={styles.heroPerspectiveGroup}>
-        {/* Line 1: Developer Name with line-mask */}
+      {/* Subtle background grid & 3D architectural canvas */}
+      <div className={styles.bg} aria-hidden="true">
+        <div className={styles.bgGrid} />
+        <HeroCanvas />
+        <div className={styles.bgVignette} />
+      </div>
+
+      <div ref={contentRef} className={styles.content}>
+        {/* Top metadata label */}
         <div className={styles.lineMask}>
-          <h1 ref={nameRef} id="hero-name" className={styles.heroName}>
-            {profile.name}
-          </h1>
-        </div>
-
-        {/* Line 2: Role definition with line-mask */}
-        <div className={styles.lineMask}>
-          <p ref={roleRef} className={styles.heroRole}>
-            {profile.role}
-          </p>
-        </div>
-
-        {/* Orientation text and action links */}
-        <div ref={contentRef}>
-          <p className={styles.heroOrientation}>
-            Computer Science Engineering undergraduate at USTM building production web applications, cross-platform mobile systems, and data dashboards.
-          </p>
-
-          <div className={styles.heroActions}>
-            <a
-              href={profile.contact.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.primaryLink}
-            >
-              GitHub
-            </a>
-            <a
-              href={profile.contact.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.secondaryLink}
-            >
-              LinkedIn
-            </a>
+          <div ref={metaRef} className={styles.metaLabel}>
+            <span className={styles.metaDot} aria-hidden="true" />
+            <span>Full-stack developer</span>
+            <span className={styles.metaSep} aria-hidden="true">/</span>
+            <span>India</span>
+            <span className={styles.metaSep} aria-hidden="true">/</span>
+            <span>2026</span>
           </div>
         </div>
+
+        {/* Main headline */}
+        <h1 id="hero-headline" className={styles.headline}>
+          <div className={styles.lineMask}>
+            <span ref={line1Ref} className={styles.headlineLine}>I Build</span>
+          </div>
+          <div className={styles.lineMask}>
+            <span ref={line2Ref} className={styles.headlineLine}>Digital</span>
+          </div>
+          <div className={styles.lineMask}>
+            <span ref={line3Ref} className={`${styles.headlineLine} ${styles.headlineAccent}`}>Systems.</span>
+          </div>
+        </h1>
+
+        {/* Sub copy */}
+        <div className={styles.lineMask}>
+          <p ref={subRef} className={styles.sub}>
+            Engineering web platforms, cross-platform mobile apps,<br />
+            and data systems that solve real problems.
+          </p>
+        </div>
+
+        {/* Actions */}
+        <div className={styles.lineMask}>
+          <div ref={actionsRef} className={styles.actions}>
+            <Magnetic strength={0.25} maxDistance={8}>
+              <a
+                href="#projects"
+                className={styles.ctaLink}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <span>Selected Work</span>
+                <span className={styles.ctaArrow} aria-hidden="true">↓</span>
+              </a>
+            </Magnetic>
+            <Magnetic strength={0.3} maxDistance={10}>
+              <a
+                href={profile.contact.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.externalLink}
+                data-cursor="link"
+              >
+                GitHub ↗
+              </a>
+            </Magnetic>
+            <Magnetic strength={0.3} maxDistance={10}>
+              <a
+                href={profile.contact.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.externalLink}
+                data-cursor="link"
+              >
+                LinkedIn ↗
+              </a>
+            </Magnetic>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className={styles.scrollIndicator} aria-hidden="true">
+        <div className={styles.scrollLine} />
       </div>
     </section>
   );

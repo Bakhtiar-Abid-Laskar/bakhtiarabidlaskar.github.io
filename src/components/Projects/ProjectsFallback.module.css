@@ -1,48 +1,186 @@
-.fallbackSection {
-  background-color: var(--color-deep);
-  color: var(--color-paper);
-  padding: var(--space-20) var(--space-8);
-  width: 100%;
+.wrapper {
+  padding: var(--space-32) var(--space-8);
+  border-top: 1px solid var(--color-border);
 }
 
-.inner {
+.header {
+  max-width: 1440px;
+  margin: 0 auto var(--space-16);
+}
+
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.labelLine {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--color-text-dim);
+  flex-shrink: 0;
+}
+
+.labelText {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.list {
   max-width: 1440px;
   margin: 0 auto;
-}
-
-.sectionHeader {
-  margin-bottom: var(--space-10);
-}
-
-.sectionTitle {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-paper);
-  letter-spacing: -0.02em;
-  margin: 0;
-}
-
-.stackList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
-  align-items: center;
 }
 
-.cardWrapper {
+.item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding: var(--space-10) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .item {
+    grid-template-columns: 60px 1fr 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+}
+
+.itemMeta {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .itemMeta {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.kind {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-snug);
+  color: var(--color-text);
+}
+
+.summary {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
+  max-width: 50ch;
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.tech {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+  letter-spacing: 0.04em;
+}
+
+.links {
+  display: flex;
+  gap: var(--space-6);
+  padding-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.liveLink {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background: var(--color-accent);
+  text-decoration: none;
+  padding: 0.45rem 0.9rem;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.liveLink:hover { opacity: 0.85; }
+
+.sourceLink {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  align-self: center;
+  transition: color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.sourceLink:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-dim);
+}
+
+.imageWrapper {
+  overflow: hidden;
+}
+
+.image {
   width: 100%;
-  max-width: 960px;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  will-change: auto;
+  height: auto;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--duration-slow) var(--ease-out),
+              filter var(--duration-slow) var(--ease-out);
+  filter: grayscale(15%);
+}
+
+.item:hover .image {
+  transform: scale(1.02);
+  filter: grayscale(0%);
 }
 
 @media (max-width: 768px) {
-  .fallbackSection {
-    padding: var(--space-12) var(--space-4);
-  }
-
-  .sectionTitle {
-    font-size: var(--font-size-2xl);
+  .wrapper {
+    padding: var(--space-20) var(--space-5);
   }
 }

@@ -1,43 +1,110 @@
 .footer {
-  width: 100%;
+  border-top: 1px solid var(--color-border);
   padding: var(--space-12) var(--space-8);
-  background-color: var(--color-fog);
-  border-top: 1px solid var(--color-border-light);
-  box-sizing: border-box;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Top row */
+.top {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
   flex-wrap: wrap;
+}
+
+.left {
+  display: flex;
+  align-items: center;
   gap: var(--space-4);
 }
 
-.copyright {
-  font-size: var(--font-size-sm);
-  color: var(--color-mist);
-  margin: 0;
-  line-height: var(--line-height-normal);
+.name {
+  font-family: var(--font-display);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text);
 }
 
-.note {
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  color: var(--color-mist);
-  margin: 0;
-  line-height: var(--line-height-normal);
+  letter-spacing: 0.06em;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+}
+
+.locationDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+}
+
+/* Links */
+.links {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.link {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-dim);
+}
+
+/* Bottom row */
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.copy {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+  letter-spacing: 0.02em;
+}
+
+.stack {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+  letter-spacing: 0.04em;
 }
 
 @media (max-width: 640px) {
-  .footer {
-    padding: var(--space-8) var(--space-4);
-  }
-
-  .container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
-  }
+  .footer { padding: var(--space-8) var(--space-5); }
+  .top { flex-direction: column; align-items: flex-start; }
+  .bottom { flex-direction: column; align-items: flex-start; }
 }

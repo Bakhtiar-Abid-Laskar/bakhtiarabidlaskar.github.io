@@ -1,0 +1,117 @@
+.dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(220, 255, 80, 0.35);
+  box-shadow: 0 0 15px rgba(220, 255, 80, 0.12);
+  pointer-events: none;
+  z-index: calc(var(--z-cursor) - 1);
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    width var(--duration-base) var(--ease-spring),
+    height var(--duration-base) var(--ease-spring),
+    background var(--duration-base) var(--ease-spring),
+    border-color var(--duration-base) var(--ease-spring),
+    box-shadow var(--duration-base) var(--ease-spring);
+  animation: ringAmbientPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes ringAmbientPulse {
+  0% {
+    transform: translate(var(--tx, -100px), var(--ty, -100px)) scale(0.92);
+    border-color: rgba(220, 255, 80, 0.25);
+    box-shadow: 0 0 10px rgba(220, 255, 80, 0.08);
+  }
+  100% {
+    transform: translate(var(--tx, -100px), var(--ty, -100px)) scale(1.08);
+    border-color: rgba(220, 255, 80, 0.5);
+    box-shadow: 0 0 22px rgba(220, 255, 80, 0.22);
+  }
+}
+
+.ring_hover {
+  width: 54px;
+  height: 54px;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 24px rgba(220, 255, 80, 0.3);
+  margin: -8px 0 0 -8px;
+}
+
+.ring_project {
+  width: 74px;
+  height: 74px;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 30px rgba(220, 255, 80, 0.45);
+  margin: -18px 0 0 -18px;
+}
+
+.ring_link {
+  width: 70px;
+  height: 70px;
+  border-color: var(--color-accent);
+  background: rgba(220, 255, 80, 0.08);
+  box-shadow: 0 0 25px rgba(220, 255, 80, 0.25);
+  margin: -16px 0 0 -16px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #080808;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.ring_link .label {
+  color: var(--color-accent);
+}
+
+/* Mobile specific styling */
+.mobileAura {
+  position: fixed;
+  top: 0; left: 0;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(220, 255, 80, 0.6);
+  background: radial-gradient(circle, rgba(220, 255, 80, 0.2) 0%, rgba(220, 255, 80, 0) 70%);
+  box-shadow: 0 0 20px rgba(220, 255, 80, 0.35);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  will-change: transform, opacity;
+  animation: mobileAuraPulse 2s ease-in-out infinite;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes mobileAuraPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}

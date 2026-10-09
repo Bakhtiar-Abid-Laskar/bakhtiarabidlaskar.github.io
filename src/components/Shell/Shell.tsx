@@ -9,6 +9,7 @@ import Projects from '@/components/Projects/Projects';
 import EducationSkills from '@/components/EducationSkills/EducationSkills';
 import Contact from '@/components/Contact/Contact';
 import Footer from '@/components/Footer/Footer';
+import CustomCursor from '@/components/CustomCursor/CustomCursor';
 import { initMotionRegistry, destroyMotionRegistry } from '@/motion/registry';
 import styles from './Shell.module.css';
 
@@ -16,9 +17,8 @@ export const Shell: React.FC = () => {
   const scrollToRef = useRef<((target: string | HTMLElement, offset?: number) => void) | null>(null);
 
   useEffect(() => {
-    const registry = initMotionRegistry({ headerOffset: -70 });
+    const registry = initMotionRegistry({ headerOffset: -80 });
     scrollToRef.current = registry.scrollTo;
-
     return () => {
       destroyMotionRegistry();
       scrollToRef.current = null;
@@ -27,11 +27,11 @@ export const Shell: React.FC = () => {
 
   const handleNavigate = (targetId: string) => {
     if (scrollToRef.current) {
-      scrollToRef.current(`#${targetId}`, -70);
+      scrollToRef.current(`#${targetId}`, -80);
     } else {
       const el = document.getElementById(targetId);
       if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY - 70;
+        const top = el.getBoundingClientRect().top + window.scrollY - 80;
         window.scrollTo({ top, behavior: 'smooth' });
       }
     }
@@ -39,27 +39,16 @@ export const Shell: React.FC = () => {
 
   return (
     <div className={styles.pageWrapper}>
+      <CustomCursor />
       <SkipLink targetId="main-content" />
       <Header onNavigate={handleNavigate} />
-
       <main id="main-content" className={styles.mainContent} tabIndex={-1}>
-        {/* HERO SECTION (Moment A) */}
         <Hero />
-
-        {/* ABOUT SECTION (Moment D) */}
         <About />
-
-        {/* PROJECTS SECTION (Moments B and C) */}
         <Projects />
-
-        {/* EDUCATION & SKILLS SECTION */}
         <EducationSkills />
-
-        {/* CONTACT SECTION (Moment E) */}
         <Contact />
       </main>
-
-      {/* FOOTER */}
       <Footer />
     </div>
   );

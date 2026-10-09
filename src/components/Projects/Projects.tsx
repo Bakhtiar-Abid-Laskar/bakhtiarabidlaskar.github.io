@@ -16,10 +16,7 @@ export const Projects: React.FC = () => {
       const isDesktop = window.matchMedia(motionTokens.mediaQueries.desktopBreakpoint).matches;
       const isFinePointer = window.matchMedia(motionTokens.mediaQueries.finePointer).matches;
       const prefersReducedMotion = window.matchMedia(motionTokens.mediaQueries.reducedMotion).matches;
-
-      // Corridor runs only on desktop with fine pointer and standard motion
-      const canRunCorridor = isDesktop && isFinePointer && !prefersReducedMotion;
-      setUseCorridor(canRunCorridor);
+      setUseCorridor(isDesktop && isFinePointer && !prefersReducedMotion);
     };
 
     checkConditions();

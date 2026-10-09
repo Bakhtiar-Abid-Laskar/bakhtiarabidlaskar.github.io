@@ -12,60 +12,47 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Split the about paragraph into distinct semantic sentences for line-by-line reveal
-const ABOUT_SENTENCES = [
-  'Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya.',
-  'I design and build production web applications, cross-platform mobile systems, and data dashboards.',
-  'My work centers on clean architecture, reliable database systems, and responsive user interfaces.',
-];
-
 export const About: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const photoWrapperRef = useRef<HTMLDivElement | null>(null);
-  const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const headlineRef = useRef<HTMLHeadingElement | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+  const photoRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
-    const prefersReducedMotion = window.matchMedia(
-      motionTokens.mediaQueries.reducedMotion
-    ).matches;
-
-    // Under reduced motion, leave text and photo completely static
+    const prefersReducedMotion = window.matchMedia(motionTokens.mediaQueries.reducedMotion).matches;
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;
 
-      // Filter active lines
-      const activeLines = lineRefs.current.filter((el): el is HTMLSpanElement => el !== null);
+      const trigger = {
+        trigger: sectionRef.current,
+        start: 'top 75%',
+        toggleActions: 'play none none none',
+      };
 
-      // Moment D: Line-by-line scrubbed reveal
-      if (activeLines.length > 0) {
-        gsap.fromTo(
-          activeLines,
-          { opacity: 0.6 },
-          {
-            opacity: 1,
-            stagger: motionTokens.momentD.lineStagger,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 75%',
-              end: 'bottom 50%',
-              scrub: true,
-            },
-          }
-        );
+      // Headline reveal
+      if (headlineRef.current) {
+        gsap.from(headlineRef.current, {
+          y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: trigger,
+        });
       }
 
-      // Moment D: Profile photo slight depth offset relative to text
-      if (photoWrapperRef.current) {
+      // Body reveal
+      if (bodyRef.current) {
+        gsap.from(bodyRef.current, {
+          y: 30, opacity: 0, duration: 0.9, ease: 'power3.out', delay: 0.15, scrollTrigger: trigger,
+        });
+      }
+
+      // Photo parallax
+      if (photoRef.current) {
         gsap.fromTo(
-          photoWrapperRef.current,
-          { y: -motionTokens.momentD.photoDepthOffset },
+          photoRef.current,
+          { y: -30 },
           {
-            y: motionTokens.momentD.photoDepthOffset,
+            y: 30,
             ease: 'none',
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -87,41 +74,64 @@ export const About: React.FC = () => {
     <section
       ref={sectionRef}
       id="about"
-      className={styles.aboutSection}
-      aria-labelledby="about-title"
+      className={styles.section}
+      aria-labelledby="about-headline"
     >
-      <div className={styles.sectionHeader}>
-        <h2 id="about-title" className={styles.sectionTitle}>
-          About
-        </h2>
-      </div>
-
-      <div className={styles.grid}>
-        <div className={styles.aboutTextContainer}>
-          <p className={styles.aboutText}>
-            {ABOUT_SENTENCES.map((sentence, idx) => (
-              <span
-                key={idx}
-                ref={(el) => {
-                  lineRefs.current[idx] = el;
-                }}
-                className={styles.revealLine}
-              >
-                {sentence}
-              </span>
-            ))}
-          </p>
+      <div className={styles.container}>
+        {/* Section label */}
+        <div className={styles.sectionLabel} aria-hidden="true">
+          <span className={styles.labelLine} />
+          <span className={styles.labelText}>About</span>
         </div>
 
-        <div ref={photoWrapperRef} className={styles.photoWrapper}>
-          <img
-            src={imageSrc}
-            alt={profile.photo.alt}
-            width={profile.photo.width}
-            height={profile.photo.height}
-            className={styles.profilePhoto}
-            loading="lazy"
-          />
+        <div className={styles.grid}>
+          {/* Left: text */}
+          <div className={styles.textCol}>
+            <h2 ref={headlineRef} id="about-headline" className={styles.headline}>
+              I like building<br />things that work.
+            </h2>
+
+            <div ref={bodyRef} className={styles.body}>
+              <p>
+                Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya.
+                I design and build production web applications, cross-platform mobile systems, and data dashboards.
+              </p>
+              <p>
+                My work centers on clean architecture, reliable database systems, and interfaces that serve a real purpose.
+                I care about the details — from schema design to pixel alignment.
+              </p>
+
+              <div className={styles.factGrid}>
+                <div className={styles.fact}>
+                  <span className={styles.factValue}>6+</span>
+                  <span className={styles.factLabel}>Production projects</span>
+                </div>
+                <div className={styles.fact}>
+                  <span className={styles.factValue}>Full-stack</span>
+                  <span className={styles.factLabel}>Web & mobile</span>
+                </div>
+                <div className={styles.fact}>
+                  <span className={styles.factValue}>India</span>
+                  <span className={styles.factLabel}>Based in</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: photo */}
+          <div className={styles.photoCol}>
+            <div ref={photoRef} className={styles.photoWrapper}>
+              <img
+                src={imageSrc}
+                alt={profile.photo.alt}
+                width={profile.photo.width}
+                height={profile.photo.height}
+                className={styles.photo}
+                loading="lazy"
+              />
+              <div className={styles.photoOverlay} aria-hidden="true" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
