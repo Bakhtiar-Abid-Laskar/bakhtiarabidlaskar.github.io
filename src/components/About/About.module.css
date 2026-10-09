@@ -1,103 +1,154 @@
-.aboutSection {
-  padding: var(--space-20) var(--space-8);
+.section {
+  padding: var(--space-32) var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.container {
   max-width: 1440px;
   margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
+  position: relative;
 }
 
-.sectionHeader {
-  margin-bottom: var(--space-8);
+/* Section label */
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-16);
 }
 
-.sectionTitle {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-ink);
-  letter-spacing: -0.02em;
-  margin: 0;
+.labelLine {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--color-text-dim);
+  flex-shrink: 0;
 }
 
+.labelText {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Grid */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: var(--space-12);
+  grid-template-columns: 1fr;
+  gap: var(--space-16);
   align-items: start;
 }
 
-.aboutTextContainer {
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 380px;
+    gap: var(--space-24);
+    align-items: start;
+  }
+}
+
+/* Text column */
+.textCol {
   display: flex;
   flex-direction: column;
+  gap: var(--space-10);
 }
 
-.aboutText {
-  font-size: var(--font-size-2xl);
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3.25rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.body p {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
   line-height: var(--line-height-relaxed);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-ink);
+  color: var(--color-text-muted);
   max-width: var(--max-line-length);
-  margin: 0;
 }
 
-.revealLine {
-  display: block;
-  opacity: 1;
-  color: var(--color-ink);
-  margin-bottom: var(--space-4);
-  will-change: auto;
+/* Fact grid */
+.factGrid {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-4);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.factValue {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text);
+}
+
+.factLabel {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+/* Photo column */
+.photoCol {
+  position: relative;
 }
 
 .photoWrapper {
   position: relative;
-  width: 100%;
-  max-width: 340px;
-  display: flex;
-  justify-content: center;
-  will-change: auto;
+  will-change: transform;
 }
 
-.profilePhoto {
+.photo {
   width: 100%;
-  max-width: 340px;
   height: auto;
-  aspect-ratio: 1 / 1;
-  border-radius: var(--radius-media);
-  border: 1px solid var(--color-border-light);
-  box-shadow: var(--shadow-raised);
-  background-color: var(--color-deep);
+  aspect-ratio: 3/4;
   object-fit: cover;
+  object-position: top center;
   display: block;
+  filter: grayscale(20%);
+  transition: filter var(--duration-slow) var(--ease-out);
 }
 
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-  }
+.photoWrapper:hover .photo {
+  filter: grayscale(0%);
+}
 
-  .aboutText {
-    font-size: var(--font-size-xl);
-  }
-
-  .photoWrapper {
-    max-width: 260px;
-  }
+.photoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(8,8,8,0.6) 100%);
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
-  .aboutSection {
-    padding: var(--space-12) var(--space-4);
+  .section {
+    padding: var(--space-20) var(--space-5);
   }
 
-  .sectionTitle {
-    font-size: var(--font-size-2xl);
-  }
-
-  .aboutText {
-    font-size: var(--font-size-lg);
-  }
-
-  .photoWrapper {
-    max-width: 220px;
+  .photo {
+    aspect-ratio: 4/3;
   }
 }

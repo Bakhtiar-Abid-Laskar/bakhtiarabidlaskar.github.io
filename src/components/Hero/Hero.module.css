@@ -1,159 +1,241 @@
-.heroSection {
+.section {
   position: relative;
-  min-height: calc(100vh - 70px);
+  min-height: 100svh;
   display: flex;
-  align-items: center;
-  padding: var(--space-20) var(--space-8);
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(64px + var(--space-8)) var(--space-8) var(--space-12);
+  overflow: hidden;
+}
+
+/* Background */
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.bgVignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, transparent 40%, var(--color-bg) 100%);
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 1;
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
-  box-sizing: border-box;
-  perspective: 1000px;
-  overflow: visible;
+  will-change: transform, opacity;
 }
 
-.heroPerspectiveGroup {
-  width: 100%;
-  transform-style: preserve-3d;
-  will-change: auto;
-}
-
+/* Line mask for clip reveal */
 .lineMask {
   overflow: hidden;
-  display: block;
-  padding-bottom: var(--space-2);
 }
 
-.heroName {
-  display: inline-block;
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-display);
-  font-weight: var(--font-weight-bold);
-  font-variation-settings: 'wdth' 125;
-  line-height: var(--line-height-tight);
-  color: var(--color-ink);
-  letter-spacing: -0.03em;
-  margin: 0;
-  opacity: 1;
-  transform: none;
+/* Meta label */
+.metaLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+  line-height: 1.4;
 }
 
-.heroRole {
-  display: inline-block;
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-snug);
-  color: var(--color-mist);
-  max-width: var(--max-line-length);
-  margin: var(--space-4) 0 0 0;
-  letter-spacing: -0.01em;
-  opacity: 1;
-  transform: none;
+.metaDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
 }
 
-.heroOrientation {
-  font-size: var(--font-size-lg);
-  line-height: var(--line-height-normal);
-  color: var(--color-mist);
-  max-width: var(--max-line-length);
-  margin-top: var(--space-6);
-  margin-bottom: 0;
+.metaSep {
+  color: var(--color-text-dim);
 }
 
-.heroActions {
+/* Headline */
+.headline {
   display: flex;
-  gap: var(--space-4);
-  margin-top: var(--space-8);
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: var(--font-size-hero);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+}
+
+.headlineLine {
+  display: block;
+}
+
+.headlineAccent {
+  color: var(--color-text-muted);
+}
+
+/* Sub */
+.sub {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+  margin-bottom: var(--space-8);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
   flex-wrap: wrap;
 }
 
-.primaryLink {
+.ctaLink {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: var(--space-3) var(--space-6);
-  background-color: var(--color-ink);
-  color: var(--color-paper);
-  border-radius: var(--radius-control);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
-  transition: background-color var(--durations-fast, 0.2s) ease, transform var(--durations-fast, 0.2s) ease;
-}
-
-.primaryLink:hover {
-  background-color: var(--color-deep);
-  transform: translateY(-1px);
-}
-
-.primaryLink:focus-visible {
-  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
-}
-
-.secondaryLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-3) var(--space-6);
-  background-color: transparent;
-  color: var(--color-ink);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-control);
+  gap: var(--space-2);
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background: var(--color-text);
   text-decoration: none;
-  transition: background-color var(--durations-fast, 0.2s) ease, border-color var(--durations-fast, 0.2s) ease, transform var(--durations-fast, 0.2s) ease;
+  padding: 0.7rem 1.4rem;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
 
-.secondaryLink:hover {
-  background-color: var(--color-paper);
-  border-color: var(--color-mist);
-  transform: translateY(-1px);
+.ctaLink:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
 }
 
-.secondaryLink:focus-visible {
-  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+.ctaArrow {
+  transition: transform var(--duration-fast) var(--ease-out);
 }
 
-@media (max-width: 1024px) {
-  .heroName {
-    font-size: var(--font-size-4xl);
-  }
-
-  .heroRole {
-    font-size: var(--font-size-xl);
-  }
+.ctaLink:hover .ctaArrow {
+  transform: translateY(3px);
 }
 
+.externalLink {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.externalLink:hover {
+  color: var(--color-text);
+  border-bottom-color: var(--color-text);
+}
+
+/* Scroll indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.scrollLine {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--color-text-dim));
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .heroSection {
-    min-height: calc(100vh - 70px);
-    padding: var(--space-12) var(--space-4) var(--space-16) var(--space-4);
+  .section {
+    padding: calc(64px + var(--space-8)) var(--space-5) var(--space-10);
+    justify-content: center;
+    min-height: 100svh;
   }
 
-  .heroName {
-    font-size: var(--font-size-3xl);
+  .headline {
+    font-size: clamp(2.35rem, 11vw, 3.5rem);
+    line-height: 1.12;
+    margin-bottom: var(--space-5);
   }
 
-  .heroRole {
-    font-size: var(--font-size-lg);
-  }
-
-  .heroOrientation {
+  .sub {
     font-size: var(--font-size-base);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
   }
 
-  .heroActions {
-    margin-top: var(--space-6);
-    flex-direction: column;
-    align-items: stretch;
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
   }
 
-  .primaryLink,
-  .secondaryLink {
-    width: 100%;
-    text-align: center;
+  .scrollIndicator {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding-top: calc(64px + var(--space-6));
+    padding-bottom: var(--space-8);
+  }
+
+  .metaLabel {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .headline {
+    font-size: clamp(2rem, 9.5vw, 2.75rem);
+    margin-bottom: var(--space-4);
+  }
+
+  .sub {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-6);
   }
 }

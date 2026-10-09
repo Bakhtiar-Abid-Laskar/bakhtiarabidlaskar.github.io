@@ -1,55 +1,96 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import profile from '@/content/profile';
 import styles from './EducationSkills.module.css';
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export const EducationSkills: React.FC = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      if (!sectionRef.current) return;
+      const items = sectionRef.current.querySelectorAll('[data-reveal]');
+      items.forEach((el) => {
+        gsap.from(el, {
+          y: 24,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
+          },
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="education-skills"
       className={styles.section}
-      aria-labelledby="education-skills-title"
+      aria-labelledby="ed-skills-title"
     >
       <div className={styles.container}>
-        <div className={styles.header}>
-          <h2 id="education-skills-title" className={styles.sectionTitle}>
-            Education and skills
-          </h2>
-          <p className={styles.leadText}>
-            Academic background and technical proficiency across modern software engineering.
-          </p>
+        {/* Label */}
+        <div className={styles.sectionLabel} data-reveal>
+          <span className={styles.labelLine} />
+          <span id="ed-skills-title" className={styles.labelText}>Education & Skills</span>
         </div>
 
         <div className={styles.grid}>
-          {/* Education Column */}
-          <div className={styles.column}>
-            <h3 className={styles.columnTitle}>Education</h3>
-            <div className={styles.educationList} role="list">
-              {profile.education.map((item, index) => (
-                <div key={index} className={styles.educationCard} role="listitem">
-                  <div className={styles.educationHeader}>
-                    <h4 className={styles.degreeTitle}>{item.degree}</h4>
-                    <span className={styles.periodBadge}>{item.period}</span>
+          {/* Skills — numbered structured list */}
+          <div className={styles.skillsCol}>
+            <h3 className={styles.colTitle} data-reveal>Technical Stack</h3>
+            <div className={styles.skillGroups}>
+              {profile.skills.map((group, gi) => (
+                <div key={group.category} className={styles.skillGroup} data-reveal>
+                  <div className={styles.groupHeader}>
+                    <span className={styles.groupIndex}>{String(gi + 1).padStart(2, '0')}</span>
+                    <span className={styles.groupName}>{group.category}</span>
                   </div>
-                  <p className={styles.institutionName}>{item.institution}</p>
+                  <ul className={styles.skillList} aria-label={`${group.category} skills`}>
+                    {group.items.map((skill, si) => (
+                      <li key={skill} className={styles.skill}>
+                        <span className={styles.skillName}>{skill}</span>
+                        {si < group.items.length - 1 && (
+                          <span className={styles.skillSep} aria-hidden="true"> · </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Skills Column */}
-          <div className={styles.column}>
-            <h3 className={styles.columnTitle}>Skills</h3>
-            <div className={styles.skillsGroups}>
-              {profile.skills.map((group) => (
-                <div key={group.category} className={styles.skillGroup}>
-                  <h4 className={styles.categoryTitle}>{group.category}</h4>
-                  <ul className={styles.tagsList} aria-label={`${group.category} skills`}>
-                    {group.items.map((skill) => (
-                      <li key={skill} className={styles.skillTag}>
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
+          {/* Education — editorial timeline */}
+          <div className={styles.eduCol}>
+            <h3 className={styles.colTitle} data-reveal>Education</h3>
+            <div className={styles.timeline}>
+              {profile.education.map((item, i) => (
+                <div key={i} className={styles.timelineItem} data-reveal>
+                  <div className={styles.timelinePeriod}>{item.period}</div>
+                  <div className={styles.timelineContent}>
+                    <div className={styles.timelineLine} aria-hidden="true" />
+                    <h4 className={styles.degree}>{item.degree}</h4>
+                    <p className={styles.institution}>{item.institution}</p>
+                  </div>
                 </div>
               ))}
             </div>

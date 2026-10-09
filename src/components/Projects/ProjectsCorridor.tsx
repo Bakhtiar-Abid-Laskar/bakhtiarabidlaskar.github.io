@@ -73,10 +73,11 @@ export const ProjectsCorridor: React.FC = () => {
                 }
               });
 
-              // Update pointer-events and inert only when active index shifts
+              // Update pointer-events, visibility and inert only when active index shifts
               panelRefs.current.forEach((panel, idx) => {
                 if (panel) {
                   panel.style.pointerEvents = idx === currentIdx ? 'auto' : 'none';
+                  panel.style.visibility = Math.abs(currentIdx - idx) <= 1 ? 'visible' : 'hidden';
                   if (idx === currentIdx) {
                     panel.removeAttribute('inert');
                   } else {
@@ -89,10 +90,13 @@ export const ProjectsCorridor: React.FC = () => {
         },
       });
 
-      // Initial inert setup: deactivate background panels
+      // Initial inert & visibility setup: only first 2 panels visible
       panelRefs.current.forEach((panel, idx) => {
-        if (panel && idx > 0) {
-          panel.setAttribute('inert', '');
+        if (panel) {
+          panel.style.visibility = idx <= 1 ? 'visible' : 'hidden';
+          if (idx > 0) {
+            panel.setAttribute('inert', '');
+          }
         }
       });
 
@@ -146,24 +150,25 @@ export const ProjectsCorridor: React.FC = () => {
         const approachAngle = (idx % 2 === 0 ? 1 : -1) * motionTokens.momentB.cardApproachRotateY;
 
         if (idx > 0) {
-          const approachStart = Math.max(0, (idx - 1) / totalSlots);
-          // Ease approach rotation from +-6 deg to 0 deg at dwell
+          const approachStart = Math.max(0, (idx - 0.75) / totalSlots);
+          // Ease approach rotation from +-6 deg and fade in from 0 to 1 at dwell
           tl.fromTo(
             panel,
-            { rotateY: approachAngle },
-            { rotateY: 0, ease: 'power1.out', duration: dwellNorm - approachStart },
+            { rotateY: approachAngle, opacity: 0 },
+            { rotateY: 0, opacity: 1, ease: 'power1.out', duration: dwellNorm - approachStart },
             approachStart
           );
         }
 
         if (idx < totalSlots) {
-          const passEnd = Math.min(1, dwellNorm + 0.5 / totalSlots);
+          const passEnd = Math.min(1, dwellNorm + 0.4 / totalSlots);
+          const passStart = dwellNorm + 0.08 / totalSlots;
           // Fade out as panel passes behind viewer
           tl.fromTo(
             panel,
             { opacity: 1 },
-            { opacity: 0, ease: 'power1.in', duration: passEnd - dwellNorm },
-            dwellNorm + 0.1 / totalSlots
+            { opacity: 0, ease: 'power1.in', duration: Math.max(0.01, passEnd - passStart) },
+            passStart
           );
         }
       });
@@ -220,6 +225,8 @@ export const ProjectsCorridor: React.FC = () => {
               style={{
                 transform: `translate3d(0, 0, ${-idx * cardZSpacing}px)`,
                 pointerEvents: idx === 0 ? 'auto' : 'none',
+                opacity: idx === 0 ? 1 : 0,
+                visibility: idx <= 1 ? 'visible' : 'hidden',
               }}
             >
               <ProjectCard project={project} />
