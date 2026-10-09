@@ -93,7 +93,7 @@ export const About: React.FC = () => {
 
             <div ref={bodyRef} className={styles.body}>
               <p>
-                Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya.
+                I am <strong>Bakhtiar Abid Laskar</strong> (also known as <strong>Bakhtiar Abid</strong> or <strong>Bakhtiar Laskar</strong>), a Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya (USTM).
                 I design and build production web applications, cross-platform mobile systems, and data dashboards.
               </p>
               <p>

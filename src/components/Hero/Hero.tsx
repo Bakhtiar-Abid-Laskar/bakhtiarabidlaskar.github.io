@@ -93,6 +93,7 @@ export const Hero: React.FC = () => {
 
         {/* Main headline */}
         <h1 id="hero-headline" className={styles.headline}>
+          <span className="sr-only">Bakhtiar Abid Laskar — Full-Stack Developer &amp; Software Engineer — </span>
           <div className={styles.lineMask}>
             <span ref={line1Ref} className={styles.headlineLine}>
               I Design<span className={styles.accentPeriod}>.</span>
