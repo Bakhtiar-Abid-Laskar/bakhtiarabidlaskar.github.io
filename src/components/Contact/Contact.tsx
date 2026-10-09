@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import profile from '@/content/profile';
@@ -32,6 +32,7 @@ const EmailIcon = () => (
 );
 
 export const Contact: React.FC = () => {
+  const [copied, setCopied] = useState<boolean>(false);
   const sectionRef = useRef<HTMLElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const bodyRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +40,8 @@ export const Contact: React.FC = () => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const prefersReducedMotion = window.matchMedia(motionTokens.mediaQueries.reducedMotion).matches;
-    if (prefersReducedMotion) return;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReducedMotion || isTouch) return;
 
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;
@@ -55,6 +57,14 @@ export const Contact: React.FC = () => {
 
     return () => ctx.revert();
   }, []);
+
+  const handleCopyEmail = () => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(profile.contact.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    }
+  };
 
   const whatsappNumber = profile.contact.phone.replace(/\D/g, '');
 
@@ -74,25 +84,29 @@ export const Contact: React.FC = () => {
 
         {/* Large headline */}
         <h2 ref={headlineRef} id="contact-title" className={styles.headline}>
-          Have a project<br />in mind?
+          Have a project in mind?
         </h2>
 
         <div ref={bodyRef} className={styles.body}>
-          {/* Email as primary CTA */}
-          <a
-            href={`mailto:${profile.contact.email}`}
-            className={styles.emailLink}
-            aria-label={`Email ${profile.contact.email}`}
-            data-cursor="link"
-          >
-            {profile.contact.email}
-            <span className={styles.emailArrow} aria-hidden="true">↗</span>
-          </a>
+          {/* Email address with tap-to-copy toast */}
+          <div className={styles.emailRow}>
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className={styles.emailCopyBtn}
+              aria-label={`Copy email address ${profile.contact.email} to clipboard`}
+            >
+              <span className={styles.emailText}>{profile.contact.email}</span>
+              <span className={`${styles.copyToast} ${copied ? styles.copyToastActive : ''}`}>
+                {copied ? '✓ Copied' : 'Tap to copy'}
+              </span>
+            </button>
+          </div>
 
-          {/* Action buttons */}
+          {/* Action buttons: Call, WhatsApp, Email */}
           <div className={styles.actions}>
             {profile.contact.phone && (
-              <Magnetic strength={0.25} maxDistance={8}>
+              <Magnetic strength={0.25} maxDistance={8} className={styles.btnMagnetic}>
                 <a
                   id="contact-btn-call"
                   href={`tel:${profile.contact.phone.replace(/\s+/g, '')}`}
@@ -105,7 +119,7 @@ export const Contact: React.FC = () => {
               </Magnetic>
             )}
             {profile.contact.phone && (
-              <Magnetic strength={0.25} maxDistance={8}>
+              <Magnetic strength={0.25} maxDistance={8} className={styles.btnMagnetic}>
                 <a
                   id="contact-btn-whatsapp"
                   href={`https://wa.me/${whatsappNumber}`}
@@ -119,7 +133,7 @@ export const Contact: React.FC = () => {
                 </a>
               </Magnetic>
             )}
-            <Magnetic strength={0.25} maxDistance={8}>
+            <Magnetic strength={0.25} maxDistance={8} className={styles.btnMagnetic}>
               <a
                 id="contact-btn-email"
                 href={`mailto:${profile.contact.email}`}
@@ -132,7 +146,7 @@ export const Contact: React.FC = () => {
             </Magnetic>
           </div>
 
-          {/* Profile links */}
+          {/* Social profile links (shown once here in contact section) */}
           <div className={styles.profileLinks}>
             <Magnetic strength={0.3} maxDistance={10}>
               <a

@@ -16,7 +16,8 @@ export const EducationSkills: React.FC = () => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReducedMotion || isTouch) return;
 
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;

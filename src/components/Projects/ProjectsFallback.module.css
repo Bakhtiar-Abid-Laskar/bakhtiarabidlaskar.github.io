@@ -1,6 +1,7 @@
 .wrapper {
   padding: var(--space-32) var(--space-8);
   border-top: 1px solid var(--color-border);
+  overflow-x: clip;
 }
 
 .header {
@@ -43,6 +44,9 @@
   gap: var(--space-8);
   padding: var(--space-10) 0;
   border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -87,6 +91,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  min-width: 0;
 }
 
 .name {
@@ -96,6 +101,7 @@
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-snug);
   color: var(--color-text);
+  text-wrap: balance;
 }
 
 .summary {
@@ -104,67 +110,104 @@
   line-height: var(--line-height-relaxed);
   color: var(--color-text-muted);
   max-width: 50ch;
+  text-wrap: pretty;
 }
 
+/* Tech stack chips: small bordered pills */
 .stack {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: 8px;
+  margin: var(--space-1) 0;
 }
 
 .tech {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-dim);
-  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  white-space: nowrap;
 }
 
+/* Links with 44px min touch target */
 .links {
   display: flex;
-  gap: var(--space-6);
+  gap: var(--space-3);
   padding-top: var(--space-2);
   flex-wrap: wrap;
 }
 
 .liveLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  letter-spacing: var(--letter-spacing-wider);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
   color: var(--color-bg);
   background: var(--color-accent);
   text-decoration: none;
-  padding: 0.45rem 0.9rem;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-control);
   transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.liveLink:hover { opacity: 0.85; }
+.liveLink:hover { opacity: 0.88; }
 
 .sourceLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  letter-spacing: var(--letter-spacing-wider);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-text);
+  background: transparent;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 1px;
-  align-self: center;
-  transition: color var(--duration-fast) var(--ease-out),
-              border-color var(--duration-fast) var(--ease-out);
+  border: 1px solid var(--color-border-strong);
+  padding: 0 1.25rem;
+  border-radius: var(--radius-control);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
 }
 
 .sourceLink:hover {
-  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.06);
   border-color: var(--color-text-dim);
 }
 
+/* Image wrapper with fixed 16/10 aspect-ratio and zoom hint */
 .imageWrapper {
+  position: relative;
   overflow: hidden;
+  border-radius: var(--radius-media);
+  border: 1px solid var(--color-border);
+  width: 100%;
+  max-width: 100%;
+}
+
+.imageLink {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  text-decoration: none;
 }
 
 .image {
   width: 100%;
+  max-width: 100%;
   height: auto;
   aspect-ratio: 16/10;
   object-fit: cover;
@@ -179,8 +222,37 @@
   filter: grayscale(0%);
 }
 
+.zoomBadge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-text);
+  background: rgba(8, 8, 8, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .wrapper {
     padding: var(--space-20) var(--space-5);
+  }
+
+  .links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .liveLink, .sourceLink {
+    width: 100%;
+    padding: 0 0.5rem;
+    text-align: center;
   }
 }

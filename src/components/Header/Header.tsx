@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import profile from '@/content/profile';
+import { getLenis } from '@/motion/registry';
 import styles from './Header.module.css';
 
 export interface NavItem {
@@ -112,20 +113,34 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isMobileOpen]);
 
-  // Initials from name
-  const initials = profile.name.split(' ').map(w => w[0]).slice(0, 2).join('');
+  // Lock scroll (body + Lenis) when mobile menu is open
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = 'hidden';
+      const lenis = getLenis();
+      lenis?.stop();
+    } else {
+      document.body.style.overflow = '';
+      const lenis = getLenis();
+      lenis?.start();
+    }
+    return () => {
+      document.body.style.overflow = '';
+      const lenis = getLenis();
+      lenis?.start();
+    };
+  }, [isMobileOpen]);
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`}>
       <div className={styles.inner}>
-        {/* Brand monogram */}
+        {/* Brand link */}
         <a
           href="#hero"
           onClick={(e) => handleLinkClick(e, 'hero')}
           className={styles.brand}
           aria-label={`${profile.name} — back to top`}
         >
-          <span className={styles.brandInitials}>{initials}</span>
           <span className={styles.brandName}>{profile.name}</span>
         </a>
 
@@ -159,12 +174,13 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 
         {/* Mobile Toggle */}
         <button
+          id="nav-mobile-toggle"
           ref={toggleBtnRef}
           type="button"
           className={styles.mobileToggle}
           aria-expanded={isMobileOpen}
           aria-controls="mobile-nav-dialog"
-          aria-label="Open navigation menu"
+          aria-label={isMobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
           onClick={() => setIsMobileOpen(true)}
         >
           <span className={styles.hamburgerLine} />
@@ -184,8 +200,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
         >
           <div className={styles.mobileInner}>
             <div className={styles.mobileTop}>
-              <span className={styles.brand} aria-hidden="true">{initials}</span>
+              <span className={styles.brandName} aria-hidden="true">{profile.name}</span>
               <button
+                id="nav-mobile-close"
                 ref={closeBtnRef}
                 type="button"
                 className={styles.closeBtn}
@@ -205,6 +222,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                   return (
                     <li key={item.id} style={{ '--item-index': i } as React.CSSProperties}>
                       <a
+                        id={`nav-mobile-link-${item.id}`}
                         href={item.href}
                         onClick={(e) => handleLinkClick(e, item.id)}
                         className={`${styles.mobileNavLink} ${isActive ? styles.mobileNavLinkActive : ''}`}

@@ -7,12 +7,16 @@ interface MagneticProps {
   children: React.ReactNode;
   strength?: number;
   maxDistance?: number;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export const Magnetic: React.FC<MagneticProps> = ({
   children,
   strength = 0.28,
   maxDistance = 10,
+  className,
+  style,
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -20,7 +24,8 @@ export const Magnetic: React.FC<MagneticProps> = ({
     const el = ref.current;
     if (!el) return;
 
-    const isFine = window.matchMedia('(pointer: fine)').matches;
+    // Gate strictly on desktop devices with hover & fine pointer
+    const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!isFine || isReduced) return;
 
@@ -77,7 +82,7 @@ export const Magnetic: React.FC<MagneticProps> = ({
   }, [strength, maxDistance]);
 
   return (
-    <div ref={ref} style={{ display: 'inline-flex' }}>
+    <div ref={ref} className={className} style={{ display: 'inline-flex', ...style }}>
       {children}
     </div>
   );

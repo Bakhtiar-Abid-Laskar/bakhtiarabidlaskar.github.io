@@ -21,7 +21,8 @@ export const About: React.FC = () => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const prefersReducedMotion = window.matchMedia(motionTokens.mediaQueries.reducedMotion).matches;
-    if (prefersReducedMotion) return;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReducedMotion || isTouch) return;
 
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;
