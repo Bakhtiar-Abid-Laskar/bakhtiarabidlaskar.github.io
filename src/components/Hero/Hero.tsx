@@ -29,9 +29,8 @@ export const Hero: React.FC = () => {
     const prefersReducedMotion = window.matchMedia(
       motionTokens.mediaQueries.reducedMotion
     ).matches;
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-    if (prefersReducedMotion || isTouch) return;
+    if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
       // Entrance: staggered line reveal
@@ -95,13 +94,19 @@ export const Hero: React.FC = () => {
         {/* Main headline */}
         <h1 id="hero-headline" className={styles.headline}>
           <div className={styles.lineMask}>
-            <span ref={line1Ref} className={styles.headlineLine}>I Design.</span>
+            <span ref={line1Ref} className={styles.headlineLine}>
+              I Design<span className={styles.accentPeriod}>.</span>
+            </span>
           </div>
           <div className={styles.lineMask}>
-            <span ref={line2Ref} className={styles.headlineLine}>I Engineer.</span>
+            <span ref={line2Ref} className={styles.headlineLine}>
+              I Engineer<span className={styles.accentPeriod}>.</span>
+            </span>
           </div>
           <div className={styles.lineMask}>
-            <span ref={line3Ref} className={`${styles.headlineLine} ${styles.headlineAccent}`}>I Deliver.</span>
+            <span ref={line3Ref} className={`${styles.headlineLine} ${styles.headlineAccent}`}>
+              I Deliver<span className={styles.accentPeriod}>.</span>
+            </span>
           </div>
         </h1>
 
