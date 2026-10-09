@@ -64,6 +64,15 @@ async function capture() {
 
       if (item.width === 390) {
         await mobilePage.screenshot({ path: path.join(outDir, 'hero-mobile.png') });
+        await mobilePage.evaluate(async () => {
+          const totalHeight = document.body.scrollHeight;
+          for (let y = 0; y <= totalHeight; y += 400) {
+            window.scrollTo(0, y);
+            await new Promise((r) => setTimeout(r, 50));
+          }
+          window.scrollTo(0, 0);
+          await new Promise((r) => setTimeout(r, 200));
+        });
         await mobilePage.screenshot({ path: path.join(outDir, 'fullpage-mobile.png'), fullPage: true });
       }
 

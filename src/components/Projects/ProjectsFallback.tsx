@@ -1,12 +1,50 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import projects from '@/content/projects';
 import siteConfig from '@/config/site';
 import styles from './ProjectsFallback.module.css';
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export const ProjectsFallback: React.FC = () => {
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReduced) return;
+
+    const ctx = gsap.context(() => {
+      const cards = listRef.current?.querySelectorAll(`.${styles.item}`);
+      cards?.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { rotateX: 10, y: 35, opacity: 0.7 },
+          {
+            rotateX: 0,
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+    }, listRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -16,7 +54,7 @@ export const ProjectsFallback: React.FC = () => {
         </div>
       </div>
 
-      <div className={styles.list}>
+      <div ref={listRef} className={styles.list}>
         {projects.map((project, idx) => {
           const imageSrc = `${siteConfig.basePath}${project.media.src}`;
           return (
