@@ -18,6 +18,9 @@
   /* ONE accent — electric lime. Used sparingly. */
   --color-accent:        #DCFF50;
   --color-accent-dim:    rgba(220,255,80,0.12);
+  --color-status-active: #4ADE80;
+  --color-whatsapp:      #25D366;
+  --color-whatsapp-hover:#1EBE5D;
 
   /* Legacy aliases used by older components — mapped to dark system */
   --color-fog:           var(--color-bg);

@@ -129,14 +129,14 @@
 }
 
 .btnWhatsApp {
-  background: #25D366;
-  color: #fff;
-  border-color: #25D366;
+  background: var(--color-whatsapp);
+  color: var(--color-white);
+  border-color: var(--color-whatsapp);
 }
 
 .btnWhatsApp:hover {
-  background: #1ebe5d;
-  border-color: #1ebe5d;
+  background: var(--color-whatsapp-hover);
+  border-color: var(--color-whatsapp-hover);
 }
 
 .btnOutline {
