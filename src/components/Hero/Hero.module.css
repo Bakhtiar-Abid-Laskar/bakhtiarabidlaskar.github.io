@@ -1,10 +1,10 @@
 .section {
   position: relative;
-  min-height: 100svh;
+  min-height: calc(100svh - 64px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: calc(64px + var(--space-4)) var(--space-8) var(--space-10);
+  justify-content: flex-start;
+  padding: clamp(var(--space-8), 6vh, var(--space-12)) var(--space-8) var(--space-10);
   overflow: hidden;
   background-color: var(--color-bg);
 }
@@ -216,9 +216,9 @@
 /* Responsive */
 @media (max-width: 768px) {
   .section {
-    padding: calc(64px + var(--space-6)) var(--space-5) var(--space-10);
+    padding: var(--space-5) var(--space-5) var(--space-8);
     justify-content: flex-start;
-    min-height: 100svh;
+    min-height: calc(100svh - 64px);
   }
 
   .headline {
@@ -283,8 +283,8 @@
 
 @media (max-width: 480px) {
   .section {
-    padding-top: calc(64px + var(--space-4));
-    padding-bottom: var(--space-8);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
     justify-content: flex-start;
   }
 
