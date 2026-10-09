@@ -39,7 +39,7 @@ export const profile: Profile = {
   degree: 'B.Tech in Computer Science & Engineering',
   location: 'India',
   about:
-    'Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya. I design and build production web applications, cross-platform mobile systems, and data dashboards. My work centers on clean architecture, reliable database systems, and responsive user interfaces.',
+    'Bakhtiar Abid Laskar is a Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya. He designs and builds production web applications, cross-platform mobile systems, and data dashboards with clean architecture, reliable databases, and responsive interfaces.',
   contact: {
     email: 'bakhtiarabidlaskar1@gmail.com',
     phone: '+91 9101607353',
