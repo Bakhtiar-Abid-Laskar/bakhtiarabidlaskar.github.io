@@ -20,51 +20,55 @@ async function capture() {
     // 1. Desktop 1440x900
     const desktopContext = await browser.newContext({
       viewport: { width: 1440, height: 900 },
+      hasTouch: false,
     });
     const page = await desktopContext.newPage();
-    await page.goto('http://localhost:3001', { waitUntil: 'networkidle', timeout: 30000 });
+    await page.goto('http://localhost:3000', { waitUntil: 'networkidle', timeout: 30000 });
     await page.waitForTimeout(1500);
 
     // Hero screenshot
     await page.screenshot({ path: path.join(outDir, 'hero-desktop.png') });
     console.log('Saved hero-desktop.png');
 
-    // Scroll to projects
-    await page.evaluate(() => {
-      document.getElementById('projects')?.scrollIntoView();
-    });
-    await page.waitForTimeout(1000);
-    await page.screenshot({ path: path.join(outDir, 'projects-desktop.png') });
-    console.log('Saved projects-desktop.png');
-
-    // Scroll to contact
-    await page.evaluate(() => {
-      document.getElementById('contact')?.scrollIntoView();
-    });
-    await page.waitForTimeout(1000);
-    await page.screenshot({ path: path.join(outDir, 'contact-desktop.png') });
-    console.log('Saved contact-desktop.png');
-
-    // Full page desktop
-    await page.screenshot({ path: path.join(outDir, 'fullpage-desktop.png'), fullPage: true });
-    console.log('Saved fullpage-desktop.png');
-
     await desktopContext.close();
 
-    // 2. Mobile 390x844
-    const mobileContext = await browser.newContext({
-      viewport: { width: 390, height: 844 },
-      isMobile: true,
-      hasTouch: true,
-    });
-    const mobilePage = await mobileContext.newPage();
-    await mobilePage.goto('http://localhost:3001', { waitUntil: 'networkidle', timeout: 30000 });
-    await mobilePage.waitForTimeout(1500);
-    await mobilePage.screenshot({ path: path.join(outDir, 'hero-mobile.png') });
-    await mobilePage.screenshot({ path: path.join(outDir, 'fullpage-mobile.png'), fullPage: true });
-    console.log('Saved mobile screenshots');
+    // 2. Responsive Mobile Suite: 320px, 360px, 390px, 430px
+    const mobileWidths = [
+      { name: '320px', width: 320, height: 640 },
+      { name: '360px', width: 360, height: 740 },
+      { name: '390px', width: 390, height: 844 },
+      { name: '430px', width: 430, height: 932 },
+    ];
 
-    await mobileContext.close();
+    for (const item of mobileWidths) {
+      const mobileContext = await browser.newContext({
+        viewport: { width: item.width, height: item.height },
+        isMobile: true,
+        hasTouch: true,
+      });
+      const mobilePage = await mobileContext.newPage();
+      await mobilePage.goto('http://localhost:3000', { waitUntil: 'networkidle', timeout: 30000 });
+      await mobilePage.waitForTimeout(1200);
+
+      // Verify no horizontal overflow
+      const overflow = await mobilePage.evaluate(() => {
+        return {
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth,
+          hasOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+          cursorCount: document.querySelectorAll('[class*="dot"], [class*="ring"], [class*="mobileAura"]').length,
+        };
+      });
+
+      console.log(`[${item.name}] Overflow: ${overflow.hasOverflow ? 'FAIL' : 'PASS'} (scrollWidth: ${overflow.scrollWidth}, clientWidth: ${overflow.clientWidth}), Custom cursor elements mounted: ${overflow.cursorCount}`);
+
+      if (item.width === 390) {
+        await mobilePage.screenshot({ path: path.join(outDir, 'hero-mobile.png') });
+        await mobilePage.screenshot({ path: path.join(outDir, 'fullpage-mobile.png'), fullPage: true });
+      }
+
+      await mobileContext.close();
+    }
   } finally {
     await browser.close();
   }

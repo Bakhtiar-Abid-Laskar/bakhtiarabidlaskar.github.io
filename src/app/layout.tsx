@@ -1,7 +1,14 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import '@/styles/tokens.css';
 import siteConfig from '@/config/site';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: 'rgb(8, 8, 8)',
+};
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],

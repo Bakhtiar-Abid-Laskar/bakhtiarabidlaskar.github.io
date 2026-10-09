@@ -31,15 +31,16 @@ export function initMotionRegistry(options: MotionRegistryOptions = {}): {
     };
   }
 
-  // Check user motion preference
+  // Check user motion preference and touch device
   const prefersReduced = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches;
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
   // Cleanup any previous instance
   destroyMotionRegistry();
 
-  if (!prefersReduced) {
+  if (!prefersReduced && !isTouchDevice) {
     lenisInstance = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

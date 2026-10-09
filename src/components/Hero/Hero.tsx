@@ -29,8 +29,9 @@ export const Hero: React.FC = () => {
     const prefersReducedMotion = window.matchMedia(
       motionTokens.mediaQueries.reducedMotion
     ).matches;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || isTouch) return;
 
     const ctx = gsap.context(() => {
       // Entrance: staggered line reveal
@@ -94,28 +95,27 @@ export const Hero: React.FC = () => {
         {/* Main headline */}
         <h1 id="hero-headline" className={styles.headline}>
           <div className={styles.lineMask}>
-            <span ref={line1Ref} className={styles.headlineLine}>I Build</span>
+            <span ref={line1Ref} className={styles.headlineLine}>I Design.</span>
           </div>
           <div className={styles.lineMask}>
-            <span ref={line2Ref} className={styles.headlineLine}>Digital</span>
+            <span ref={line2Ref} className={styles.headlineLine}>I Engineer.</span>
           </div>
           <div className={styles.lineMask}>
-            <span ref={line3Ref} className={`${styles.headlineLine} ${styles.headlineAccent}`}>Systems.</span>
+            <span ref={line3Ref} className={`${styles.headlineLine} ${styles.headlineAccent}`}>I Deliver.</span>
           </div>
         </h1>
 
         {/* Sub copy */}
         <div className={styles.lineMask}>
           <p ref={subRef} className={styles.sub}>
-            Engineering web platforms, cross-platform mobile apps,<br />
-            and data systems that solve real problems.
+            Engineering web platforms, cross-platform mobile apps, and data systems that solve real problems.
           </p>
         </div>
 
         {/* Actions */}
         <div className={styles.lineMask}>
           <div ref={actionsRef} className={styles.actions}>
-            <Magnetic strength={0.25} maxDistance={8}>
+            <Magnetic strength={0.25} maxDistance={8} className={styles.ctaMagnetic}>
               <a
                 href="#projects"
                 className={styles.ctaLink}
@@ -128,28 +128,30 @@ export const Hero: React.FC = () => {
                 <span className={styles.ctaArrow} aria-hidden="true">↓</span>
               </a>
             </Magnetic>
-            <Magnetic strength={0.3} maxDistance={10}>
-              <a
-                href={profile.contact.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.externalLink}
-                data-cursor="link"
-              >
-                GitHub ↗
-              </a>
-            </Magnetic>
-            <Magnetic strength={0.3} maxDistance={10}>
-              <a
-                href={profile.contact.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.externalLink}
-                data-cursor="link"
-              >
-                LinkedIn ↗
-              </a>
-            </Magnetic>
+            <div className={styles.secondaryActions}>
+              <Magnetic strength={0.3} maxDistance={10} className={styles.secondaryMagnetic}>
+                <a
+                  href={profile.contact.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.externalLink}
+                  data-cursor="link"
+                >
+                  GitHub ↗
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.3} maxDistance={10} className={styles.secondaryMagnetic}>
+                <a
+                  href={profile.contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.externalLink}
+                  data-cursor="link"
+                >
+                  LinkedIn ↗
+                </a>
+              </Magnetic>
+            </div>
           </div>
         </div>
       </div>

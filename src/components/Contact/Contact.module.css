@@ -45,44 +45,73 @@
   line-height: 1.12;
   color: var(--color-text);
   margin-bottom: var(--space-8);
+  text-wrap: balance;
 }
 
 /* Body */
 .body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-10);
+  gap: var(--space-8);
   max-width: 600px;
 }
 
-/* Email CTA */
-.emailLink {
+/* Email tap-to-copy row */
+.emailRow {
+  display: flex;
+  align-items: center;
+}
+
+.emailCopyBtn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-muted);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-border-strong);
-  padding-bottom: var(--space-2);
+  gap: var(--space-4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-control);
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  color: var(--color-text);
   transition:
-    color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out);
 }
 
-.emailLink:hover {
-  color: var(--color-text);
+.emailCopyBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
   border-color: var(--color-accent);
 }
 
-.emailArrow {
-  transition: transform var(--duration-fast) var(--ease-out);
+.emailCopyBtn:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
-.emailLink:hover .emailArrow {
-  transform: translate(3px, -3px);
+.emailText {
+  font-family: var(--font-mono);
+  font-size: clamp(0.875rem, 2vw, 1.05rem);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.02em;
+}
+
+.copyToast {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text-dim);
+  border: 1px solid var(--color-border);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.copyToastActive {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+  font-weight: 600;
 }
 
 /* Action buttons */
@@ -90,11 +119,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+  width: 100%;
+}
+
+.btnMagnetic {
+  display: inline-flex;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
@@ -102,18 +137,14 @@
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0.55rem 1.1rem;
+  padding: 0.55rem 1.25rem;
   min-height: 44px;
   border: 1px solid transparent;
+  border-radius: var(--radius-control);
   transition:
     background var(--duration-fast) var(--ease-out),
     color var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
+    border-color var(--duration-fast) var(--ease-out);
 }
 
 .btnPrimary {
@@ -128,15 +159,17 @@
   color: var(--color-bg);
 }
 
+/* WhatsApp matching theme palette: outline / lime accent */
 .btnWhatsApp {
-  background: var(--color-whatsapp);
-  color: var(--color-white);
-  border-color: var(--color-whatsapp);
+  background: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent-dim);
 }
 
 .btnWhatsApp:hover {
-  background: var(--color-whatsapp-hover);
-  border-color: var(--color-whatsapp-hover);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
 }
 
 .btnOutline {
@@ -155,9 +188,13 @@
 .profileLinks {
   display: flex;
   gap: var(--space-8);
+  padding-top: var(--space-2);
 }
 
 .profileLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   letter-spacing: var(--letter-spacing-wider);
@@ -198,6 +235,33 @@
 @media (max-width: 768px) {
   .section {
     padding: var(--space-20) var(--space-5);
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-3);
+  }
+
+  .btnMagnetic {
+    width: 100%;
+    display: block;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .emailRow {
+    width: 100%;
+  }
+
+  .emailCopyBtn {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .bgName {
