@@ -100,7 +100,10 @@ export const metadata: Metadata = {
     apple: [{ url: `${siteConfig.basePath}/apple-touch-icon.png` }],
   },
   verification: {
-    google: 'google1f1be3d6683a2066',
+    google: [
+      'o8RzymTJY56_v2OiEL1qRmdagopk0JswYYgtFFfd5M0',
+      'google1f1be3d6683a2066',
+    ],
   },
   other: {
     'geo.region': siteConfig.geo.region,
