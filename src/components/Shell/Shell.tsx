@@ -10,6 +10,7 @@ import EducationSkills from '@/components/EducationSkills/EducationSkills';
 import Contact from '@/components/Contact/Contact';
 import Footer from '@/components/Footer/Footer';
 import CustomCursor from '@/components/CustomCursor/CustomCursor';
+import BackgroundGrid from '@/components/BackgroundGrid/BackgroundGrid';
 import { initMotionRegistry, destroyMotionRegistry } from '@/motion/registry';
 import styles from './Shell.module.css';
 
@@ -39,6 +40,7 @@ export const Shell: React.FC = () => {
 
   return (
     <div className={styles.pageWrapper}>
+      <BackgroundGrid />
       <CustomCursor />
       <SkipLink targetId="main-content" />
       <Header onNavigate={handleNavigate} />
