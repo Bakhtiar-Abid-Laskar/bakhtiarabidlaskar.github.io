@@ -141,7 +141,10 @@ const jsonLdGraph = {
       jobTitle: siteConfig.jobTitle,
       url: siteConfig.canonicalUrl,
       mainEntityOfPage: siteConfig.canonicalUrl,
-      image: `${siteConfig.canonicalUrl}media/og-image.png`,
+      image: [
+        `${siteConfig.canonicalUrl}media/profile.webp`,
+        `${siteConfig.canonicalUrl}media/og-image.png`,
+      ],
       email: siteConfig.links.email,
       telephone: siteConfig.links.phone,
       gender: 'Male',
