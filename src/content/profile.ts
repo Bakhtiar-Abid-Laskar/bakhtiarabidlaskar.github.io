@@ -48,7 +48,7 @@ export const profile: Profile = {
   },
   photo: {
     src: '/media/avatar.svg',
-    alt: 'Bakhtiar Abid Laskar',
+    alt: 'Bakhtiar Abid Laskar (Bakhtiar Abid / Bakhtiar Laskar) — Software Engineer & Full-Stack Developer',
     width: 400,
     height: 400,
   },

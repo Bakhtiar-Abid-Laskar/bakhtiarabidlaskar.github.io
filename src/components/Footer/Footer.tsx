@@ -19,7 +19,9 @@ export const Footer: React.FC = () => {
 
         <div className={styles.bottom}>
           <p className={styles.copy}>
-            Designed &amp; built by {profile.name.split(' ')[0]} &mdash; &copy; {year}
+            Designed &amp; built by {profile.name.split(' ')[0]}
+            <span className="sr-only"> ({profile.name} / Bakhtiar Abid / Bakhtiar Laskar)</span>
+            &mdash; &copy; {year}
           </p>
           <p className={styles.stack}>
             Next.js · GSAP · Lenis · TypeScript

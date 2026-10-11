@@ -91,9 +91,13 @@ export const About: React.FC = () => {
               I like building<br />things that work.
             </h2>
 
-            <div ref={bodyRef} className={styles.body}>
+            <div ref={bodyRef} className={styles.body} itemScope itemType="https://schema.org/Person">
+              <meta itemProp="name" content="Bakhtiar Abid Laskar" />
+              <meta itemProp="alternateName" content="Bakhtiar Abid" />
+              <meta itemProp="alternateName" content="Bakhtiar Laskar" />
+              <meta itemProp="alternateName" content="Bakhtiar" />
               <p>
-                I am <strong>Bakhtiar Abid Laskar</strong> (also known as <strong>Bakhtiar Abid</strong> or <strong>Bakhtiar Laskar</strong>), a Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya (USTM).
+                I am <strong>Bakhtiar Abid Laskar</strong><span className="sr-only"> (also known as Bakhtiar Abid or Bakhtiar Laskar)</span>, a Computer Science Engineering undergraduate at the University of Science and Technology Meghalaya (USTM).
                 I design and build production web applications, cross-platform mobile systems, and data dashboards.
               </p>
               <p>
