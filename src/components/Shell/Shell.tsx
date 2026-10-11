@@ -6,6 +6,7 @@ import SkipLink from '@/components/SkipLink/SkipLink';
 import Hero from '@/components/Hero/Hero';
 import About from '@/components/About/About';
 import Projects from '@/components/Projects/Projects';
+import Certifications from '@/components/Certifications/Certifications';
 import EducationSkills from '@/components/EducationSkills/EducationSkills';
 import Contact from '@/components/Contact/Contact';
 import Footer from '@/components/Footer/Footer';
@@ -48,6 +49,7 @@ export const Shell: React.FC = () => {
         <Hero />
         <About />
         <Projects />
+        <Certifications />
         <EducationSkills />
         <Contact />
       </main>

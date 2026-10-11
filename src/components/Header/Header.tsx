@@ -12,10 +12,11 @@ export interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Work',    href: '#projects',        id: 'projects' },
-  { label: 'About',   href: '#about',            id: 'about' },
-  { label: 'Skills',  href: '#education-skills', id: 'education-skills' },
-  { label: 'Contact', href: '#contact',          id: 'contact' },
+  { label: 'Work',           href: '#projects',        id: 'projects' },
+  { label: 'About',          href: '#about',            id: 'about' },
+  { label: 'Certifications', href: '#certifications',   id: 'certifications' },
+  { label: 'Skills',         href: '#education-skills', id: 'education-skills' },
+  { label: 'Contact',        href: '#contact',          id: 'contact' },
 ];
 
 export interface HeaderProps {
@@ -40,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
   // Active section tracking via IntersectionObserver
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const sectionIds = ['hero', 'about', 'projects', 'education-skills', 'contact'];
+    const sectionIds = ['hero', 'about', 'projects', 'certifications', 'education-skills', 'contact'];
     const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);

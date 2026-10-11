@@ -177,7 +177,32 @@ const jsonLdGraph = {
         'https://bakhtiarabidlaskar.github.io/',
         siteConfig.canonicalUrl,
       ],
+      hasCredential: [
+        {
+          '@type': 'EducationalOccupationalCredential',
+          name: 'Python and Machine Learning Internship Certificate',
+          credentialCategory: 'Internship Certificate',
+          recognizedBy: {
+            '@type': 'Organization',
+            name: 'Bahash Private Limited (Bahash-AI)',
+            url: 'https://www.bahash.in',
+          },
+          validFrom: '2026-01-18',
+        },
+        {
+          '@type': 'EducationalOccupationalCredential',
+          name: 'Python Programming Internship Certificate',
+          credentialCategory: 'Internship Certificate',
+          recognizedBy: {
+            '@type': 'Organization',
+            name: 'Bahash Private Limited (Bahash-AI)',
+            url: 'https://www.bahash.in',
+          },
+          validFrom: '2025-06-22',
+        },
+      ],
       knowsAbout: [
+        'Machine Learning',
         'Next.js',
         'React',
         'TypeScript',
